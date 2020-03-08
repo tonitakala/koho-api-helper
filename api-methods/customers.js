@@ -70,25 +70,28 @@ module.exports = function(helper) {
       try {
 
         // Rename persons array for update request and remove customer access tokens if it has zero length
-        if (customer.persons && customer.persons.length) {
-          customer.persons_attributes = customer.persons;
+        if (customer.persons) {
+          if (customer.persons.length) {
+            customer.persons_attributes = customer.persons.map((person) => {
+              if (person.customer_access_tokens) {
+                delete person.customer_access_tokens;
+              }
 
-          customer.persons_attributes = customer.persons.map((person) => {
-            if (person.customer_access_tokens && !person.customer_access_tokens.length) {
-              delete person.customer_access_tokens;
-            }
+              return person;
+            });
+          }
 
-            return person;
-          });
+          delete customer.persons;
         }
 
-        // Rename employees array for update request (legacy naming?)
-        if (customer.employees && customer.employees.length) {
-          customer.responsibilities_attributes = customer.employees;
-        }
+        // Rename employees array for update request
+        if (customer.employees) {
+          if (customer.employees.length) {
+            customer.responsibilities_attributes = customer.employees;
+          }
 
-        delete customer.persons;
-        delete customer.employees;
+          delete customer.employees;
+        }
 
         if ( ! customer.id) {
           return reject('Cannot update customer: No customer.id specified');

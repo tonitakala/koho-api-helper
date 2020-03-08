@@ -8,6 +8,7 @@
  * @property {string} [customer_id] Customer ID
  * @property {boolean} [active] Status
  * @property {string} [description] Project description
+ * @property {array} [templates] Linked templates (template.id and template.name)
  * @property {any} [_] Other properties. Please consult Koho customer service
  */
 

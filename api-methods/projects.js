@@ -58,7 +58,7 @@ module.exports = function(helper) {
 
 
   /**
-   * Update project
+   * Update
    * @memberof KohoApiHelper#
    * @alias projects.update
    * @param {Project} project
@@ -98,7 +98,7 @@ module.exports = function(helper) {
   }
 
   /**
-   * Create project
+   * Create
    * @memberof KohoApiHelper#
    * @alias projects.create
    * @param {ProjectProperties} project Project properties
