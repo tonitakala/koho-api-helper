@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Project = require('../api-resources/project');
+const Project = require('../api_resources/project');
 
 module.exports = function(helper) {
 

@@ -1,7 +1,7 @@
-const apiCustomers = require('./api-methods/customers');
-const apiProjects = require('./api-methods/projects');
-const apiProducts = require('./api-methods/products');
-const apiContracts = require('./api-methods/contracts');
+const apiCustomers = require('./api_methods/customers');
+const apiProjects = require('./api_methods/projects');
+const apiProducts = require('./api_methods/products');
+const apiContracts = require('./api_methods/contracts');
 
 
 // Default API endpoints

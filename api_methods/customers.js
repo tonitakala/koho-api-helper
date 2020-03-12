@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Customer = require('../api-resources/customer');
+const Customer = require('../api_resources/customer');
 
 module.exports = function(helper) {
 

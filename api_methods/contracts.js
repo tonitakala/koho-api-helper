@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Contract = require('../api-resources/contract');
+const Contract = require('../api_resources/contract');
 
 module.exports = function(helper) {
 
