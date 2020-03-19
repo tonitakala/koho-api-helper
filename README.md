@@ -52,49 +52,70 @@ await customer.update({
 -   [KohoApiHelper](#kohoapihelper)
     -   [Parameters](#parameters)
     -   [customers.getAll](#customersgetall)
-    -   [customers.getById](#customersgetbyid)
         -   [Parameters](#parameters-1)
-    -   [customers.update](#customersupdate)
+    -   [customers.getById](#customersgetbyid)
         -   [Parameters](#parameters-2)
-    -   [customers.update](#customersupdate-1)
+    -   [customers.getByName](#customersgetbyname)
         -   [Parameters](#parameters-3)
-    -   [customers.create](#customerscreate)
+    -   [customers.getByNumber](#customersgetbynumber)
         -   [Parameters](#parameters-4)
-    -   [projects.getAll](#projectsgetall)
-    -   [projects.getById](#projectsgetbyid)
+    -   [customers.update](#customersupdate)
         -   [Parameters](#parameters-5)
-    -   [projects.update](#projectsupdate)
+    -   [customers.update](#customersupdate-1)
         -   [Parameters](#parameters-6)
-    -   [projects.create](#projectscreate)
+    -   [customers.create](#customerscreate)
         -   [Parameters](#parameters-7)
-    -   [products.getAll](#productsgetall)
-    -   [products.getById](#productsgetbyid)
+    -   [projects.getAll](#projectsgetall)
         -   [Parameters](#parameters-8)
+    -   [projects.getById](#projectsgetbyid)
+        -   [Parameters](#parameters-9)
+    -   [projects.update](#projectsupdate)
+        -   [Parameters](#parameters-10)
+    -   [projects.create](#projectscreate)
+        -   [Parameters](#parameters-11)
+    -   [products.getAll](#productsgetall)
+        -   [Parameters](#parameters-12)
+    -   [products.getById](#productsgetbyid)
+        -   [Parameters](#parameters-13)
     -   [contracts.getAll](#contractsgetall)
     -   [contracts.getById](#contractsgetbyid)
-        -   [Parameters](#parameters-9)
+        -   [Parameters](#parameters-14)
+    -   [persons.getAll](#personsgetall)
+    -   [persons.getById](#personsgetbyid)
+        -   [Parameters](#parameters-15)
+    -   [persons.update](#personsupdate)
+        -   [Parameters](#parameters-16)
+    -   [persons.create](#personscreate)
+        -   [Parameters](#parameters-17)
+    -   [employees.getAll](#employeesgetall)
+    -   [employees.getById](#employeesgetbyid)
+        -   [Parameters](#parameters-18)
+    -   [employees.update](#employeesupdate)
+        -   [Parameters](#parameters-19)
+    -   [employees.create](#employeescreate)
+        -   [Parameters](#parameters-20)
 -   [KohoApiHelperOptions](#kohoapihelperoptions)
     -   [Properties](#properties)
 -   [Customer](#customer)
-    -   [Parameters](#parameters-10)
+    -   [Parameters](#parameters-21)
     -   [update](#update)
-        -   [Parameters](#parameters-11)
+        -   [Parameters](#parameters-22)
     -   [archive](#archive)
     -   [activate](#activate)
 -   [CustomerProperties](#customerproperties)
     -   [Properties](#properties-1)
--   [Project](#project)
-    -   [Parameters](#parameters-12)
-    -   [update](#update-1)
-        -   [Parameters](#parameters-13)
-    -   [archive](#archive-1)
-    -   [activate](#activate-1)
 -   [ProjectProperties](#projectproperties)
     -   [Properties](#properties-2)
+-   [Project](#project)
+    -   [Parameters](#parameters-23)
+    -   [update](#update-1)
+        -   [Parameters](#parameters-24)
+    -   [archive](#archive-1)
+    -   [activate](#activate-1)
 -   [Product](#product)
-    -   [Parameters](#parameters-14)
+    -   [Parameters](#parameters-25)
     -   [update](#update-2)
-        -   [Parameters](#parameters-15)
+        -   [Parameters](#parameters-26)
     -   [archive](#archive-2)
     -   [activate](#activate-2)
 -   [ProductProperties](#productproperties)
@@ -104,10 +125,30 @@ await customer.update({
 -   [ContractProperties](#contractproperties)
     -   [Properties](#properties-5)
 -   [Contract](#contract)
-    -   [Parameters](#parameters-16)
+    -   [Parameters](#parameters-27)
     -   [update](#update-3)
-        -   [Parameters](#parameters-17)
+        -   [Parameters](#parameters-28)
     -   [addProducts](#addproducts)
+-   [Person](#person)
+    -   [Parameters](#parameters-29)
+    -   [update](#update-4)
+        -   [Parameters](#parameters-30)
+    -   [archive](#archive-3)
+    -   [activate](#activate-3)
+-   [PersonAccessTokenProperties](#personaccesstokenproperties)
+    -   [Properties](#properties-6)
+-   [PersonProperties](#personproperties)
+    -   [Properties](#properties-7)
+-   [Employee](#employee)
+    -   [Parameters](#parameters-31)
+    -   [update](#update-5)
+        -   [Parameters](#parameters-32)
+    -   [archive](#archive-4)
+    -   [activate](#activate-4)
+-   [EmployeeGroup](#employeegroup)
+    -   [Properties](#properties-8)
+-   [EmployeeProperties](#employeeproperties)
+    -   [Properties](#properties-9)
 
 ## KohoApiHelper
 
@@ -121,6 +162,11 @@ Instantiate KohoApiHelper
 
 Get all customers
 
+#### Parameters
+
+-   `filters` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
+    -   `filters.active` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Only get active customers
+
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Customer](#customer)>)** Array containing customers
 
 ### customers.getById
@@ -133,12 +179,37 @@ Get customer by id
 
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Customer](#customer))** Customer
 
+### customers.getByName
+
+Find customers by name. Returns an array. Name is not unique
+
+#### Parameters
+
+-   `customerName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `filters` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
+    -   `filters.active` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Only get active customers
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Customer](#customer)>)** Customer
+
+### customers.getByNumber
+
+Find customers by number. Returns an array. Number is not unique
+
+#### Parameters
+
+-   `customerNumber` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `filters` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
+    -   `filters.active` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Only get active customers
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Customer](#customer)>)** Customer
+
 ### customers.update
 
 Update customer
 
 #### Parameters
 
+-   `_customer`  
 -   `customer` **[Customer](#customer)** 
 
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
@@ -167,6 +238,11 @@ Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 ### projects.getAll
 
 Get all projects
+
+#### Parameters
+
+-   `filters` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
+    -   `filters.active` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Only get active projects
 
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Project](#project)>)** Array containing projects
 
@@ -205,6 +281,11 @@ Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 
 Get all
 
+#### Parameters
+
+-   `filters` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
+    -   `filters.active` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Only get active products
+
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Product](#product)>)** Array containing results
 
 ### products.getById
@@ -231,6 +312,63 @@ Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Contract](#contract))** Contract
 
+### persons.getAll
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Person](#person)>)** 
+
+### persons.getById
+
+#### Parameters
+
+-   `personId`  
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Person](#person))** 
+
+### persons.update
+
+#### Parameters
+
+-   `person` **[PersonProperties](#personproperties)** 
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+### persons.create
+
+#### Parameters
+
+-   `person` **[PersonProperties](#personproperties)** 
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Person](#person))** 
+
+### employees.getAll
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Employee](#employee)>)** 
+
+### employees.getById
+
+#### Parameters
+
+-   `employeeId`  
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Employee](#employee))** 
+
+### employees.update
+
+#### Parameters
+
+-   `_employee`  
+-   `employee` **[Employee](#employee)** 
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+### employees.create
+
+#### Parameters
+
+-   `employee` **[EmployeeProperties](#employeeproperties)** 
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) \| [Employee](#employee))** 
+
 ## KohoApiHelperOptions
 
 Options for Koho Api Helper
@@ -246,6 +384,8 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
     -   `endpoints.projects` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Default: <https://suite-beta.koho-online.com/api/projects>
     -   `endpoints.products` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Default: <https://suite-beta.koho-online.com/api/products>
     -   `endpoints.contracts` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Default: <https://suite-beta.koho-online.com/api/contracts>
+    -   `endpoints.persons` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Default: <https://suite-beta.koho-online.com/api/customer/persons>
+    -   `endpoints.employees` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Default: <https://suite-beta.koho-online.com/api/employees>
 
 ## Customer
 
@@ -334,8 +474,30 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 -   `accounting_target_4_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Cost center ID 4
 -   `set_category_by_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Set customer category by category name [setter]
 -   `custom_parameters` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Company specific custom parameters. Please consult Koho customer service
--   `persons` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** Customer contact persons
+-   `persons` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Person](#person)>?** Customer contact persons
 -   `employees` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** Customer responsible employees
+-   `archived_at` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+-   `zero_vat` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** True if customer has VAT 0%
+-   `posting_group` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Fivaldi posting group without prefix zeros
+-   `_` **any?** Other properties. Please consult Koho customer service
+
+## ProjectProperties
+
+Project properties
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Properties
+
+-   `id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Project ID
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Project name
+-   `start_date` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Start date (YYYY-MM-DD)
+-   `end_date` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** End date (YYYY-MM-DD)
+-   `customer_id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Customer ID
+-   `active` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Status
+-   `description` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Project description
+-   `templates` **[array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)?** Linked templates (template.id and template.name)
+-   `plan_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Project plan ID
 -   `_` **any?** Other properties. Please consult Koho customer service
 
 ## Project
@@ -368,24 +530,6 @@ Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 Activate project
 
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
-
-## ProjectProperties
-
-Project properties
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-### Properties
-
--   `id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Project ID
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Project name
--   `start_date` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Start date (YYYY-MM-DD)
--   `end_date` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** End date (YYYY-MM-DD)
--   `customer_id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Customer ID
--   `active` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Status
--   `description` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Project description
--   `templates` **[array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)?** Linked templates (template.id and template.name)
--   `_` **any?** Other properties. Please consult Koho customer service
 
 ## Product
 
@@ -520,3 +664,132 @@ Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 ### addProducts
 
 Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+## Person
+
+Person instance
+
+### Parameters
+
+-   `properties` **[PersonProperties](#personproperties)** 
+-   `helper` **[KohoApiHelper](#kohoapihelper)** 
+
+### update
+
+#### Parameters
+
+-   `updatedProperties` **[PersonProperties](#personproperties)** Updated properties
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+### archive
+
+Archive person
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+### activate
+
+Activate person
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+## PersonAccessTokenProperties
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Properties
+
+-   `id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Access token ID
+-   `customer_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Customer ID
+-   `user_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `person_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `email` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `is_valid` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `admin` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `settings` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `created_at` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `updated_at` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `_` **any?** Other properties. Please consult Koho customer service
+
+## PersonProperties
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Properties
+
+-   `id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Person ID
+-   `customer_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Customer ID
+-   `first_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+-   `last_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+-   `description` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+-   `email` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+-   `phone` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+-   `role` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Titteli
+-   `position` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Rooli
+-   `archived` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
+-   `customer_access_tokens` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PersonAccessTokenProperties](#personaccesstokenproperties)>** Customer Portal access tokens
+-   `_` **any?** Other properties. Please consult Koho customer service
+
+## Employee
+
+Employee instance
+
+### Parameters
+
+-   `properties` **[EmployeeProperties](#employeeproperties)** 
+-   `helper` **[KohoApiHelper](#kohoapihelper)** 
+
+### update
+
+#### Parameters
+
+-   `updatedProperties` **[EmployeeProperties](#employeeproperties)** Updated properties
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+### archive
+
+Archive employee
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+### activate
+
+Activate employee
+
+Returns **([Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) | void)** 
+
+## EmployeeGroup
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Properties
+
+-   `id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## EmployeeProperties
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Properties
+
+-   `id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Employee ID (company specific)
+-   `user_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Employee User ID
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `email` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `username` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `code` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Payroll code
+-   `team_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Team name
+-   `hourly_cost` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Hourly cost
+-   `profile_template_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Profile ID
+-   `profile_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Profile name
+-   `active` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `groups` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[EmployeeGroup](#employeegroup)>?** Employee groups (Erikoisryhmät)
+-   `accounting_target_number` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Cost center number 1
+-   `accounting_target_2_number` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Cost center number 2
+-   `accounting_target_3_number` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Cost center number 3
+-   `accounting_target_4_number` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Cost center number 4
+-   `accounting_target_id` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Cost center ID [setter]
+-   `_` **any?** Other properties. Please consult Koho customer service
