@@ -1,3 +1,5 @@
+const Person = require('./person');
+
 /**
  * Customer properties
  * @typedef {Object} CustomerProperties
@@ -49,8 +51,11 @@
  * @property {number} [accounting_target_4_id] Cost center ID 4
  * @property {string} [set_category_by_name] Set customer category by category name [setter]
  * @property {object} [custom_parameters] Company specific custom parameters. Please consult Koho customer service
- * @property {object[]} [persons] Customer contact persons
+ * @property {Person[]} [persons] Customer contact persons
  * @property {object[]} [employees] Customer responsible employees
+ * @property {string} [archived_at]
+ * @property {Boolean} zero_vat True if customer has VAT 0%
+ * @property {string} [posting_group] Fivaldi posting group without prefix zeros
  * @property {any} [_] Other properties. Please consult Koho customer service
  */
 
@@ -63,6 +68,10 @@
 
 const Customer = function(properties, helper) {
   this.properties = properties;
+
+  if (properties.persons && properties.persons.length) {
+    this.properties.persons = properties.persons.map((person) => new Person(person, helper));
+  }
 
   if (typeof properties !== 'object' || properties === null) {
     throw 'Incorrect properties in resource initialization';
