@@ -2,14 +2,16 @@ const apiCustomers = require('./api_methods/customers');
 const apiProjects = require('./api_methods/projects');
 const apiProducts = require('./api_methods/products');
 const apiContracts = require('./api_methods/contracts');
-
+const apiPersons = require('./api_methods/persons');
+const apiEmployees = require('./api_methods/employees');
 
 // Default API endpoints
 const CUSTOMERS_ENDPOINT = 'https://suite-beta.koho-online.com/api/customers';
 const PROJECTS_ENDPOINT = 'https://suite-beta.koho-online.com/api/projects';
 const PRODUCTS_ENDPOINT = 'https://suite-beta.koho-online.com/api/product_types';
 const CONTRACTS_ENDPOINT = 'https://suite-beta.koho-online.com/api/contracts';
-
+const PERSONS_ENDPOINT = 'https://suite-beta.koho-online.com/api/customer/persons';
+const EMPLOYEES_ENDPOINT = 'https://suite-beta.koho-online.com/api/employees';
 
 /**
  * Options for Koho Api Helper
@@ -21,6 +23,8 @@ const CONTRACTS_ENDPOINT = 'https://suite-beta.koho-online.com/api/contracts';
  * @property {string} [endpoints.projects] Default: https://suite-beta.koho-online.com/api/projects
  * @property {string} [endpoints.products] Default: https://suite-beta.koho-online.com/api/products
  * @property {string} [endpoints.contracts] Default: https://suite-beta.koho-online.com/api/contracts
+ * @property {string} [endpoints.persons] Default: https://suite-beta.koho-online.com/api/customer/persons
+ * @property {string} [endpoints.employees] Default: https://suite-beta.koho-online.com/api/employees
  */
 
  /**
@@ -46,6 +50,8 @@ const KohoApiHelper = function(options) {
   this.options.endpoints.projects = this.options.endpoints.projects || PROJECTS_ENDPOINT;
   this.options.endpoints.products = this.options.endpoints.products || PRODUCTS_ENDPOINT;
   this.options.endpoints.contracts = this.options.endpoints.contracts || CONTRACTS_ENDPOINT;
+  this.options.endpoints.persons = this.options.endpoints.persons || PERSONS_ENDPOINT;
+  this.options.endpoints.employees = this.options.endpoints.employees || EMPLOYEES_ENDPOINT;
 
   /***
    * Customer related API Helpers
@@ -59,6 +65,8 @@ const KohoApiHelper = function(options) {
   this.projects = new apiProjects(this);
   this.products = new apiProducts(this);
   this.contracts = new apiContracts(this);
+  this.persons = new apiPersons(this);
+  this.employees = new apiEmployees(this);
 
   return this;
 }
