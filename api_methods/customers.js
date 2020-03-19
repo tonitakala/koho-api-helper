@@ -7,10 +7,12 @@ module.exports = function(helper) {
    * Get all customers
    * @memberof KohoApiHelper#
    * @alias customers.getAll
+   * @param {Object} [filters]
+   * @param {Boolean} [filters.active] Only get active customers
    * @returns {Promise|Array<Customer>} Array containing customers
    */
 
-  this.getAll = async () => {
+  this.getAll = async (filters) => {
     return new Promise(async (resolve, reject) => {
       try {
         const result = await axios.get(helper.options.endpoints.customers, {
@@ -20,7 +22,13 @@ module.exports = function(helper) {
           }
         });
 
-        const customers = result.data.map(customer => new Customer(customer, helper));
+        let customers = result.data.map(customer => new Customer(customer, helper));
+
+        if (filters) {
+          if (filters.active) {
+            customers = customers.filter(customer => ! customer.archived);
+          }
+        }
 
         resolve(customers);
       } catch (e) {
@@ -56,6 +64,77 @@ module.exports = function(helper) {
     });
   }
 
+  /**
+   * Find customers by name. Returns an array. Name is not unique
+   * @memberof KohoApiHelper#
+   * @alias customers.getByName
+   * @param {string} customerName
+   * @param {Object} [filters]
+   * @param {Boolean} [filters.active] Only get active customers
+   * @returns {Promise|Customer[]} Customer
+   */
+
+  this.getByName = async (customerName, filters) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await axios.get(`${helper.options.endpoints.customers}`, {
+          params : {
+            name       : customerName,
+            company_id : helper.options.companyId,
+            token      : helper.options.token
+          }
+        });
+
+        let customers = result.data.map(customer => new Customer(customer, helper));
+
+        if (filters) {
+          if (filters.active) {
+            customers = customers.filter(customer => ! customer.archived);
+          }
+        }
+
+        resolve(customers);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  /**
+   * Find customers by number. Returns an array. Number is not unique
+   * @memberof KohoApiHelper#
+   * @alias customers.getByNumber
+   * @param {number} customerNumber
+   * @param {Object} [filters]
+   * @param {Boolean} [filters.active] Only get active customers
+   * @returns {Promise|Customer[]} Customer
+   */
+
+  this.getByNumber = async (customerNumber) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await axios.get(`${helper.options.endpoints.customers}`, {
+          params : {
+            number     : customerNumber,
+            company_id : helper.options.companyId,
+            token      : helper.options.token
+          }
+        });
+
+        let customers = result.data.map(customer => new Customer(customer, helper));
+
+        if (filters) {
+          if (filters.active) {
+            customers = customers.filter(customer => ! customer.archived);
+          }
+        }
+
+        resolve(customers);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
 
   /**
    * Update customer
@@ -65,9 +144,10 @@ module.exports = function(helper) {
    * @returns {Promise|void}
    */
 
-  this.update = async (customer) => {
+  this.update = async (_customer) => {
     return new Promise(async (resolve, reject) => {
       try {
+        const customer = { ..._customer };
 
         // Rename persons array for update request and remove customer access tokens if it has zero length
         if (customer.persons) {
