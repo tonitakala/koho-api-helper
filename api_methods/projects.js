@@ -7,10 +7,12 @@ module.exports = function(helper) {
    * Get all projects
    * @memberof KohoApiHelper#
    * @alias projects.getAll
+   * @param {Object} [filters]
+   * @param {Boolean} [filters.active] Only get active projects
    * @returns {Promise|Array<Project>} Array containing projects
    */
 
-  this.getAll = async () => {
+  this.getAll = async (filters) => {
     return new Promise(async (resolve, reject) => {
       try {
         const result = await axios.get(helper.options.endpoints.projects, {
@@ -20,7 +22,13 @@ module.exports = function(helper) {
           }
         });
 
-        const projects = result.data.map(project => new Project(project, helper));
+        let projects = result.data.map(project => new Project(project, helper));
+
+        if (filters) {
+          if (filters.active) {
+            projects = projects.filter(project => project.active);
+          }
+        }
 
         resolve(projects);
       } catch (e) {
