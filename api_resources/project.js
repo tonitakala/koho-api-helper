@@ -9,6 +9,7 @@
  * @property {boolean} [active] Status
  * @property {string} [description] Project description
  * @property {array} [templates] Linked templates (template.id and template.name)
+ * @property {number} [plan_id] Project plan ID
  * @property {any} [_] Other properties. Please consult Koho customer service
  */
 
