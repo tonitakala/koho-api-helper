@@ -56,10 +56,9 @@ module.exports = function(helper) {
   }
 
   /**
-   * Update customer
    * @memberof KohoApiHelper#
-   * @alias customers.update
-   * @param {Customer} customer
+   * @alias contracts.update
+   * @param {Contract}
    * @returns {Promise|void}
    */
 
@@ -119,7 +118,35 @@ module.exports = function(helper) {
           }
         );
 
-        console.log(result.data);
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  /**
+   * @memberof KohoApiHelper#
+   * @alias contracts.delete
+   * @param {Contract}
+   * @returns {Promise|void}
+   */
+
+  this.delete = async (contract) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if ( ! contract.id) {
+          return reject('Cannot delete contract: No contract.id specified');
+        }
+
+        const result = await axios.delete(`${helper.options.endpoints.contracts}/${contract.id}`,
+          {
+            params : {
+              company_id : helper.options.companyId,
+              token      : helper.options.token
+            }
+          }
+        );
 
         resolve();
       } catch (e) {

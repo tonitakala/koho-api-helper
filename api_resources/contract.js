@@ -100,6 +100,18 @@ const Contract = function(properties, helper) {
     //return await helper.contracts.update(this.properties);
   }
 
+  /**
+   * @name delete
+   * @function
+   * @memberof Contract#
+   * @param {ContractProductProperties[]}
+   * @returns {Promise|void}
+   */
+
+  this.delete = async () => {
+    return await helper.contracts.delete(this.properties);
+  }
+
   return new Proxy(this, {
     get : function (instance, name) {
       return Object.hasOwnProperty.call(instance.properties, name) ? instance.properties[name] : instance[name];
