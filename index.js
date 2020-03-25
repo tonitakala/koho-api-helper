@@ -1,74 +1,50 @@
-const apiCustomers = require('./api_methods/customers');
-const apiProjects = require('./api_methods/projects');
-const apiProducts = require('./api_methods/products');
-const apiContracts = require('./api_methods/contracts');
-const apiPersons = require('./api_methods/persons');
-const apiEmployees = require('./api_methods/employees');
+'use strict';
 
-// Default API endpoints
-const CUSTOMERS_ENDPOINT = 'https://suite-beta.koho-online.com/api/customers';
-const PROJECTS_ENDPOINT = 'https://suite-beta.koho-online.com/api/projects';
-const PRODUCTS_ENDPOINT = 'https://suite-beta.koho-online.com/api/product_types';
-const CONTRACTS_ENDPOINT = 'https://suite-beta.koho-online.com/api/contracts';
-const PERSONS_ENDPOINT = 'https://suite-beta.koho-online.com/api/customer/persons';
-const EMPLOYEES_ENDPOINT = 'https://suite-beta.koho-online.com/api/employees';
+const EmployeeMethods = require('./lib/methods/employee.methods');
+const CustomerMethods = require('./lib/methods/customer.methods');
+const PersonMethods = require('./lib/methods/person.methods');
+const ContractMethods = require('./lib/methods/contract.methods');
+const ProductMethods = require('./lib/methods/product.methods');
+const ProjectMethods = require('./lib/methods/project.methods');
+const InvoiceMethods = require('./lib/methods/invoice.methods');
 
 /**
  * Options for Koho Api Helper
  * @typedef {Object} KohoApiHelperOptions
  * @property {string} token Company API Token in Koho Sales
  * @property {number} companyId Company ID in Koho Sales
- * @property {Object} [endpoints] API endpoints to be used (for example override urls for development)
- * @property {string} [endpoints.customers] Default: https://suite-beta.koho-online.com/api/customers
- * @property {string} [endpoints.projects] Default: https://suite-beta.koho-online.com/api/projects
- * @property {string} [endpoints.products] Default: https://suite-beta.koho-online.com/api/products
- * @property {string} [endpoints.contracts] Default: https://suite-beta.koho-online.com/api/contracts
- * @property {string} [endpoints.persons] Default: https://suite-beta.koho-online.com/api/customer/persons
- * @property {string} [endpoints.employees] Default: https://suite-beta.koho-online.com/api/employees
+ * @property {string} [url] API URL (default: https://suite-beta.koho-online.com/api)
  */
 
  /**
  * Instantiate KohoApiHelper
  * @constructor
+ * @name KohoApiHelper
  * @param {KohoApiHelperOptions} options
  */
 
-const KohoApiHelper = function(options) {
-  this.options = options || {};
+module.exports = class KohoApiHelper {
+  constructor(options) {
+    this.options = options || {};
 
-  if ( ! options.token) {
-    throw 'No API token specified';
+    if ( ! options.token) {
+      throw 'No API token specified';
+    }
+
+    if ( ! options.companyId) {
+      throw 'No Company ID specified';
+    }
+
+    if (! options.url) {
+      this.options.url = 'https://suite-beta.koho-online.com/api';
+    }
+
+    this.employees = new EmployeeMethods(this);
+    this.customers = new CustomerMethods(this);
+    this.persons = new PersonMethods(this);
+    this.contracts = new ContractMethods(this);
+    this.products = new ProductMethods(this);
+    this.projects = new ProjectMethods(this);
+    this.invoices = new InvoiceMethods(this);
   }
-
-  if ( ! options.companyId) {
-    throw 'No Company ID specified';
-  }
-
-  this.options.endpoints = this.options.endpoints || {};
-
-  this.options.endpoints.customers = this.options.endpoints.customers || CUSTOMERS_ENDPOINT;
-  this.options.endpoints.projects = this.options.endpoints.projects || PROJECTS_ENDPOINT;
-  this.options.endpoints.products = this.options.endpoints.products || PRODUCTS_ENDPOINT;
-  this.options.endpoints.contracts = this.options.endpoints.contracts || CONTRACTS_ENDPOINT;
-  this.options.endpoints.persons = this.options.endpoints.persons || PERSONS_ENDPOINT;
-  this.options.endpoints.employees = this.options.endpoints.employees || EMPLOYEES_ENDPOINT;
-
-  /***
-   * Customer related API Helpers
-   * @type {Object}
-   * @name customers
-   * @alias KohoApiHelper.customers
-   * @memberof KohoApiHelper#
-   */
-
-  this.customers = new apiCustomers(this);
-  this.projects = new apiProjects(this);
-  this.products = new apiProducts(this);
-  this.contracts = new apiContracts(this);
-  this.persons = new apiPersons(this);
-  this.employees = new apiEmployees(this);
-
-  return this;
 }
-
-module.exports = KohoApiHelper;

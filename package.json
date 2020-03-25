@@ -1,10 +1,12 @@
 {
   "name": "koho-api-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "documentation:serve": "documentation serve --watch index.js",
+    "documentation:readme": "documentation readme index.js --section=\"API Documentation\""
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,7 @@
   },
   "homepage": "https://github.com/tonitakala/koho-api-helper#readme",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "form-data": "^3.0.0"
   }
 }
