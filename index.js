@@ -7,6 +7,7 @@ const ContractMethods = require('./lib/methods/contract.methods');
 const ProductMethods = require('./lib/methods/product.methods');
 const ProjectMethods = require('./lib/methods/project.methods');
 const InvoiceMethods = require('./lib/methods/invoice.methods');
+const SaleMethods = require('./lib/methods/sale.methods');
 
 /**
  * Options for Koho Api Helper
@@ -46,5 +47,6 @@ module.exports = class KohoApiHelper {
     this.products = new ProductMethods(this);
     this.projects = new ProjectMethods(this);
     this.invoices = new InvoiceMethods(this);
+    this.sales = new SaleMethods(this);
   }
 }
