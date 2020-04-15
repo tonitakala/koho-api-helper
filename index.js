@@ -32,8 +32,8 @@ module.exports = class KohoApiHelper {
       throw 'No API token specified';
     }
 
-    if ( ! options.companyId) {
-      throw 'No Company ID specified';
+    if ( ! options.companyId && ! options.enterpriseId) {
+      throw 'No Company ID or enterpriseId specified';
     }
 
     if (! options.url) {
