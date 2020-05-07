@@ -12,8 +12,9 @@ const SaleMethods = require('./lib/methods/sale.methods');
 /**
  * Options for Koho Api Helper
  * @typedef {Object} KohoApiHelperOptions
- * @property {string} token Company API Token in Koho Sales
- * @property {number} companyId Company ID in Koho Sales
+ * @property {string} token Company (or Enterprise) API Token in Koho Sales
+ * @property {number} [companyId] Company ID in Koho Sales
+ * @property {number} [enterpriseId] Enterprise ID in Koho Sales
  * @property {string} [url] API URL (default: https://suite-beta.koho-online.com/api)
  */
 
