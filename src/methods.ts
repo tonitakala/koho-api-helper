@@ -4,8 +4,8 @@ export class Methods {
   [x: string]: any;
   _helper: KohoApiHelper;
   _uri: string;
-  _type: string;
-  _resourceRef: any;
+  private _type: string;
+  private _resourceRef: any;
 
   constructor (helper: KohoApiHelper, uri: string, resourceRef: any) {
     if (!helper || typeof helper !== 'object') {
@@ -30,7 +30,7 @@ export class Methods {
   }
 
   // Prefix post body with object type
-  _generateProperties(properties: any) {
+  private _generateProperties(properties: any) {
     const object : any = {}; object[this._type] = properties;
 
     return object;
