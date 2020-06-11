@@ -35,7 +35,7 @@ export class CustomerMethods extends Methods {
     return resources;
    }
 
-  async getByNumber(number: number) : Promise<Customer[]> {
+  async getByNumber(number: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { number });
     const resources = result.data.map((r: CustomerProperties) => new Customer(r, this._helper));
 
