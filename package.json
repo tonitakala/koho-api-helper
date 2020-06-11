@@ -1,10 +1,12 @@
 {
   "name": "koho-api-helper",
-  "version": "0.0.7",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.9",
+  "description": "Koho Sales API helper library",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc --watch",
+    "build": "tsc",
     "documentation:serve": "documentation serve --watch index.js",
     "documentation:readme": "documentation readme index.js --section=\"API Documentation\""
   },
@@ -20,7 +22,12 @@
   },
   "homepage": "https://github.com/tonitakala/koho-api-helper#readme",
   "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^14.0.13",
     "axios": "^0.19.2",
     "form-data": "^3.0.0"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }

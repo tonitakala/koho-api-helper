@@ -1,11 +1,14 @@
-'use strict';
+import { KohoApiHelper } from '.';
+import { CustomerProperties, InvoiceProperties, PersonProperties } from './property-definitions';
 
-module.exports = (function() {
-  let _helper;
-  let _type;
+const Resource : any = (function() {
+  let _helper: any;
+  let _type: string;
 
-  class Resource {
-    constructor (properties, helper, type) {
+  class R {
+    [x: string]: any;
+
+    constructor (properties: CustomerProperties | InvoiceProperties | PersonProperties, helper: KohoApiHelper, type: string) {
       _helper = helper;
       _type = type;
 
@@ -33,7 +36,7 @@ module.exports = (function() {
     }
 
     // Recursively update properties in object
-    setProperties(object, properties) {
+    setProperties(object: any, properties: any) {
       for (const property in properties) {
         if (typeof properties[property] === 'object' && properties[property] !== null && !Array.isArray(properties[property])) {
           if (!object[property]) {
@@ -47,7 +50,7 @@ module.exports = (function() {
       }
     }
 
-    async update(properties) {
+    async update(properties: any) {
       this.setProperties(this, properties);
 
       if (typeof this._updateInterceptor === 'function') {
@@ -62,5 +65,7 @@ module.exports = (function() {
     }
   }
 
-  return Resource;
+  return R;
 })();
+
+export { Resource };

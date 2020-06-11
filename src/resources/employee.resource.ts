@@ -1,34 +1,6 @@
-'use strict';
-
-const Resource = require('../resource');
-
-/**
- * @typedef {Object} EmployeeProperties
- * @property {number} id Employee ID (company specific)
- * @property {number} user_id Employee User ID
- * @property {string} name
- * @property {string} email
- * @property {string} username
- * @property {string} [code] Payroll code
- * @property {string} [team_name] Team name
- * @property {number} [hourly_cost] Hourly cost
- * @property {number} [profile_template_id] Profile ID
- * @property {string} [profile_name] Profile name
- * @property {Boolean} active
- * @property {EmployeeGroup[]} [groups] Employee groups (Erikoisryhmät)
- * @property {string} [accounting_target_number] Cost center number 1
- * @property {string} [accounting_target_2_number] Cost center number 2
- * @property {string} [accounting_target_3_number] Cost center number 3
- * @property {string} [accounting_target_4_number] Cost center number 4
- * @property {number} [accounting_target_id] Cost center ID [setter]
- * @property {any} [_] Other properties. Please consult Koho customer service
- */
-
-/**
- * @typedef {Object} EmployeeGroup
- * @property {number} id
- * @property {string} name
- */
+import { KohoApiHelper } from '../index';
+import { EmployeeProperties, EmployeeGroupProperties, ContractProperties } from "../property-definitions";
+import { Resource } from '../resource';
 
 /**
  * @constructor
@@ -37,8 +9,8 @@ const Resource = require('../resource');
  * @param {KohoApiHelper} helper
  */
 
-module.exports = class Employee extends Resource {
-  constructor (properties, helper) {
+export class Employee extends Resource {
+  constructor (properties: EmployeeProperties, helper: KohoApiHelper) {
     super(properties, helper, 'employees');
 
     // Populate groups array with group id and name
@@ -56,10 +28,10 @@ module.exports = class Employee extends Resource {
     delete this.group_names;
   }
 
-  _updateInterceptor(properties) {
+  _updateInterceptor(properties: EmployeeProperties) {
     // Update groups by ids, not group object
     if (properties.groups !== undefined) {
-      properties.group_ids = properties.groups.map(group => group.id);
+      properties.group_ids = properties.groups.map((group: any) => group.id);
 
       delete properties.groups;
     }
@@ -77,7 +49,7 @@ module.exports = class Employee extends Resource {
 
       // Target number is not removed if number is null, therefore set id to null if we want to remove it
       if (properties.accounting_target_number === null) {
-        properties.accounting_target_id = null;
+        delete properties.accounting_target_id;
       } else {
         properties.set_accounting_target_number = properties.accounting_target_number;
       }
@@ -95,33 +67,16 @@ module.exports = class Employee extends Resource {
     delete properties.accounting_target_4_number;
   }
 
-  /**
-   * @name archive
-   * @function
-   * @memberof Employee#
-   * @returns {Promise|void}
-   */
-
-  async archive() {
+  async archive() : Promise<void> {
     return await super.update({ active : false });
   }
 
-  /**
-   * @name activate
-   * @function
-   * @memberof Employee#
-   * @returns {Promise|void}
-   */
-
-  async activate() {
+  async activate() : Promise<void> {
     return await super.update({ active : true });
   }
 
-  /**
-   * @name update
-   * @function
-   * @memberof Employee#
-   * @param {EmployeeProperties} properties
-   * @returns {Promise|void}
-   */
+  async update(properties: ContractProperties) : Promise<void> {
+    return await super.update(properties);
+  }
+  
 }

@@ -1,9 +1,13 @@
-'use strict';
+import { KohoApiHelper } from './index'
 
-const axios = require('axios');
+export class Methods {
+  [x: string]: any;
+  _helper: KohoApiHelper;
+  _uri: string;
+  _type: string;
+  _resourceRef: any;
 
-module.exports = class Methods {
-  constructor (helper, uri, resourceRef) {
+  constructor (helper: KohoApiHelper, uri: string, resourceRef: any) {
     if (!helper || typeof helper !== 'object') {
       throw new Error('Incorrect or missing helper in resource initialization');
     }
@@ -25,50 +29,18 @@ module.exports = class Methods {
     this._resourceRef = resourceRef;
   }
 
-  get _authParams() {
-    const params = {
-      token : this._helper.options.token
-    }
-
-    // Use company id or enterprise id (prefer company id)
-    if (this._helper.options.companyId) {
-      params.company_id = this._helper.options.companyId
-    } else {
-      params.enterprise_id = this._helper.options.enterpriseId
-    }
-
-    return params;
-  }
-
-  // Prefix post body with
-  _generateProperties(properties) {
-    const object = {}; object[this._type] = properties;
+  // Prefix post body with object type
+  _generateProperties(properties: any) {
+    const object : any = {}; object[this._type] = properties;
 
     return object;
   }
 
-  async request(uri, method, data, params, options) {
-    if ( ! uri) {
-      throw new Error('Missing URI for request');
-    }
-
-    method = method || 'GET';
-    data = data || {};
-
-    return await axios.request({
-      url    : `${this._helper.options.url}/${uri}`,
-
-      method : method,
-      data   : data,
-
-      // concatenate auth params + original params
-      params : { ...this._authParams, ...params },
-
-      ...options
-    });
+  async request(uri: string, method?: string, data?: any, params?: any, options?: any) {
+    return await this._helper.request(`${this._helper.options.url}/${uri}`, method, data, params, options);
   }
 
-  async create(properties) {
+  async create(properties: any, ...args: any) {
     // may be needed later
     if (typeof this._validateProperties === 'function') {
       this._validateProperties(properties);
@@ -81,20 +53,20 @@ module.exports = class Methods {
     return resource;
   }
 
-  async getAll() {
-    const result = await this.request(this._uri);
-    const resources = result.data.map(r => new this._resourceRef(r, this._helper));
+  async getAll(params: object = {}) {
+    const result = await this.request(this._uri, 'GET', null, params);
+    const resources = result.data.map((r: any) => new this._resourceRef(r, this._helper));
 
     return resources;
   }
 
-  async getById(resourceId) {
+  async getById(resourceId: number) {
     const result = await this.request(`${this._uri}/${resourceId}`);
 
     return new this._resourceRef(result.data, this._helper);
   }
 
-  async updateById(resourceId, properties) {
+  async updateById(resourceId: number, properties: any) {
     if ( ! resourceId) {
       throw new Error(`Cannot update ${this._type}: No ${this._type}.id specified`);
     }
@@ -104,7 +76,7 @@ module.exports = class Methods {
     return;
   }
 
-  async deleteById(resourceId) {
+  async deleteById(resourceId: number) {
     if ( ! resourceId) {
       throw new Error(`Cannot delete ${this._type}: No ${this._type}.id specified`);
     }
