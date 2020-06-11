@@ -109,9 +109,11 @@ When updating custom_parameters you should always first fetch the resource and t
 const customer = await helper.customers.getById(1234);
 
 await customer.update({
-  ...customer.custom_parameters, // assign existing parameters
+  custom_parameters : {
+    ...customer.custom_parameters, // assign existing parameters
   
-  updated_parameter : 'Updated' // update other parameters
+    updated_parameter : 'Updated' // update other parameters
+  }
 });
 ```
 
