@@ -1,5 +1,5 @@
 import { KohoApiHelper } from '../index';
-import { EmployeeProperties, EmployeeGroupProperties, ContractProperties } from "../property-definitions";
+import { EmployeeProperties, EmployeeGroupProperties } from "../property-definitions";
 import { Resource } from '../resource';
 
 /**
@@ -31,7 +31,7 @@ export class Employee extends Resource {
   _updateInterceptor(properties: EmployeeProperties) {
     // Update groups by ids, not group object
     if (properties.groups !== undefined) {
-      properties.group_ids = properties.groups.map((group: any) => group.id);
+      properties.group_ids = properties.groups.map((group: EmployeeGroupProperties) => group.id);
 
       delete properties.groups;
     }
@@ -75,7 +75,7 @@ export class Employee extends Resource {
     return await super.update({ active : true });
   }
 
-  async update(properties: ContractProperties) : Promise<void> {
+  async update(properties: EmployeeProperties) : Promise<void> {
     return await super.update(properties);
   }
   
