@@ -8,10 +8,6 @@ export class InvoiceMethods extends Methods {
     super(helper, 'invoices', Invoice);
   }
 
-  _validateProperties(properties: InvoiceProperties) {
-
-  }
-
   async getAll(params: object = {}) : Promise<Invoice[]> {
     return await super.getAll(params);
   }
