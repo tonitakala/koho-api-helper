@@ -79,11 +79,12 @@ export class KohoApiHelper {
       token : this.options.token
     }
 
-    // Use company id or enterprise id (prefer company id)
+    if (this.options.enterpriseId) {
+      params.enterprise_id = this.options.enterpriseId
+    }
+
     if (this.options.companyId) {
       params.company_id = this.options.companyId
-    } else {
-      params.enterprise_id = this.options.enterpriseId
     }
 
     return params;
