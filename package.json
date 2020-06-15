@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc --watch",
-    "build": "tsc",
-    "documentation:serve": "documentation serve --watch index.js",
-    "documentation:readme": "documentation readme index.js --section=\"API Documentation\""
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
