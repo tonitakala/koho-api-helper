@@ -36,7 +36,7 @@ export class Methods {
     return object;
   }
 
-  async request(uri: string, method?: string, data?: any, params?: any, options?: any) {
+  async request(uri: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
     return await this._helper.request(`${this._helper.options.url}/${uri}`, method, data, params, options);
   }
 
@@ -47,7 +47,7 @@ export class Methods {
     }
 
     const result = await this.request(this._uri, 'POST', this._generateProperties(properties));
-    const resultId = result.data.id;
+    const resultId = result.id;
     const resource = await this.getById(resultId);
 
     return resource;
@@ -55,7 +55,8 @@ export class Methods {
 
   async getAll(params: object = {}) {
     const result = await this.request(this._uri, 'GET', null, params);
-    const resources = result.data.map((r: any) => new this._resourceRef(r, this._helper));
+
+    const resources = result.map((r: any) => new this._resourceRef(r, this._helper));
 
     return resources;
   }
@@ -63,7 +64,7 @@ export class Methods {
   async getById(resourceId: number) {
     const result = await this.request(`${this._uri}/${resourceId}`);
 
-    return new this._resourceRef(result.data, this._helper);
+    return new this._resourceRef(result, this._helper);
   }
 
   async updateById(resourceId: number, properties: any) {
@@ -71,7 +72,7 @@ export class Methods {
       throw new Error(`Cannot update ${this._type}: No ${this._type}.id specified`);
     }
 
-    const result = await this.request(`${this._uri}/${resourceId}`, 'PUT', this._generateProperties(properties));
+    await this.request(`${this._uri}/${resourceId}`, 'PUT', this._generateProperties(properties));
 
     return;
   }
@@ -81,7 +82,7 @@ export class Methods {
       throw new Error(`Cannot delete ${this._type}: No ${this._type}.id specified`);
     }
 
-    const result = await this.request(`${this._uri}/${resourceId}`, 'DELETE');
+    await this.request(`${this._uri}/${resourceId}`, 'DELETE');
 
     return;
   }

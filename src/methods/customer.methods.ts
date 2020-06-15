@@ -30,21 +30,21 @@ export class CustomerMethods extends Methods {
 
    async getByName(name: string) : Promise<Customer[]> {
     const result = await super.request(this._uri, 'GET', null, { name });
-    const resources = result.data.map((r: CustomerProperties) => new Customer(r, this._helper));
+    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper));
 
     return resources;
    }
 
   async getByNumber(number: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { number });
-    const resources = result.data.map((r: CustomerProperties) => new Customer(r, this._helper));
+    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper));
 
     return resources;
    }
 
   async getByCode(code: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { code });
-    const resources = result.data ? result.data.map((r: CustomerProperties) => new Customer(r, this._helper)) : [];
+    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper)) : [];
 
     return resources;
   }

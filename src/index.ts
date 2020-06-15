@@ -7,7 +7,7 @@ import { ProductMethods } from './methods/product.methods';
 import { ProjectMethods } from './methods/project.methods';
 import { SaleMethods } from './methods/sale.methods';
 
-import axios, { AxiosResponse } from 'axios';
+import { default as got } from 'got';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -53,25 +53,22 @@ export class KohoApiHelper {
     this.sales = new SaleMethods(this);
   }
 
-  async request(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<AxiosResponse> {
+  async request(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
     if ( ! url) {
       throw new Error('Missing URL for request');
     }
 
-    method = method || 'GET';
-    data = data || {};
-
-    return await axios.request({
-      url    : url,
-
-      method : method,
-      data   : data,
-
-      // concatenate auth params + original params
-      params : { ...this._authParams, ...params },
-
+    const gotOptions = {
+      method: method || 'GET',
+      searchParams: { ...this._authParams, ...params },
       ...options
-    });
+    }
+
+    if (gotOptions.method !== 'GET') {
+      gotOptions.json = data;
+    }
+
+    return await got(url, gotOptions).json();
   }
 
   get _authParams() {

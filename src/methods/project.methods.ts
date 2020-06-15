@@ -44,7 +44,7 @@ export class ProjectMethods extends Methods {
 
   async getByCustomerId(customerId: number) : Promise<Project[]> {
     const result = await this.request(`${this._uri}/find_by_customer/${customerId}`);
-    const projects = result.data.map((r: ProjectProperties) => new Project(r, this._helper));
+    const projects = result.map((r: ProjectProperties) => new Project(r, this._helper));
 
     return projects;
   }

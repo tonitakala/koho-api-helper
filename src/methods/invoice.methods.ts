@@ -30,7 +30,7 @@ export class InvoiceMethods extends Methods {
 
   async getByCustomerId(customerId: number) : Promise<Invoice[]> {
     const result = await this.request(this._uri, 'GET', null, { customer_id : customerId });
-    const invoices = result.data.map((r: InvoiceProperties) => new Invoice(r, this._helper));
+    const invoices = result.map((r: InvoiceProperties) => new Invoice(r, this._helper));
 
     return invoices;
   }
@@ -39,7 +39,7 @@ export class InvoiceMethods extends Methods {
     throw new Error('Not implemented in Koho API');
 
     const result = await this.request(this._uri, 'GET', null, { contract_id : contractId });
-    const invoices = result.data.map((r: InvoiceProperties) => new Invoice(r, this._helper));
+    const invoices = result.map((r: InvoiceProperties) => new Invoice(r, this._helper));
 
     return invoices;
   }
