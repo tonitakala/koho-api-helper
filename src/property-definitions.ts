@@ -5,6 +5,21 @@ export interface CustomerProperties {
   [propName: string]: any;
 }
 
+export interface CustomerCategoryProperties {
+  id: number;
+  name: string;
+  description?: string;
+  customer_ids?: number[];
+}
+
+export interface CustomerGroupProperties {
+  id: number;
+  name: string;
+  description?: string;
+  customer_ids?: number[];
+  custom_parameters?: any;
+}
+
 export interface PersonProperties {
   id?: number;
   customer_id: number;

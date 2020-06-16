@@ -45,6 +45,8 @@ The following api resources have been implemented:
 
 * `contracts` Invoicing contracts
 * `customers` Customers
+* `customersCategories` Customer categories (asiakasryhmä)
+* `customersGroups` Customer groups (erikoisryhmä)
 * `employees` Employees
 * `invoices` Invoices
 * `persons` Customer contact persons
@@ -128,3 +130,7 @@ const customer = await helper.customers.create({
   organization_id : '1234567-8'
 });
 ```
+
+## Changelog
+
+1.1.0 Add customersGroups and customersCategories resources
