@@ -53,7 +53,11 @@ export class Customer extends Resource {
     return await this._helper.invoices.getByCustomerId(this.id);
   }
 
-   async update(properties: CustomerProperties) : Promise<void> {
-     return await super.update(properties);
-   }
+  async update(properties: CustomerProperties) : Promise<void> {
+    return await super.update(properties);
+  }
+
+  async addNotification(message: string) : Promise<void> {
+    return await (<KohoApiHelper>super._helper).notifications.create(this.id, message);
+  }
 }

@@ -6,6 +6,7 @@ import { EmployeeMethods } from './methods/employee.methods';
 import { ProductMethods } from './methods/product.methods';
 import { ProjectMethods } from './methods/project.methods';
 import { SaleMethods } from './methods/sale.methods';
+import { NotificationMethods } from './methods/notification.methods';
 
 import { default as got } from 'got';
 import { CustomerCategoryMethods } from './methods/customer-category.methods';
@@ -29,6 +30,7 @@ export class KohoApiHelper {
   readonly products: ProductMethods;
   readonly projects: ProjectMethods;
   readonly sales: SaleMethods;
+  readonly notifications: NotificationMethods;
   readonly customersCategories: CustomerCategoryMethods;
   readonly customersGroups: CustomerGroupMethods;
 
@@ -57,6 +59,7 @@ export class KohoApiHelper {
     this.products = new ProductMethods(this);
     this.projects = new ProjectMethods(this);
     this.sales = new SaleMethods(this);
+    this.notifications = new NotificationMethods(this);
   }
 
   async request(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {

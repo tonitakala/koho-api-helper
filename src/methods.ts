@@ -30,7 +30,7 @@ export class Methods {
   }
 
   // Prefix post body with object type
-  private _generateProperties(properties: any) {
+  _generateProperties(properties: any) {
     const object : any = {}; object[this._type] = properties;
 
     return object;

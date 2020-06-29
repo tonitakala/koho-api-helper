@@ -1,7 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
 import { CustomerCategory } from '../resources/customer-category.resource';
-import { CustomerCategoryProperties } from '../property-definitions';
 
 export class CustomerCategoryMethods extends Methods {
   constructor (helper: KohoApiHelper) {

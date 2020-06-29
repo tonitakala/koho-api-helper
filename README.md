@@ -53,6 +53,7 @@ The following api resources have been implemented:
 * `products` Products (product types)
 * `projects` Projects
 * `sales` Sales (pikakauppa)
+* `notifications` Notifications
 
 ### Getter examples
 
@@ -134,3 +135,4 @@ const customer = await helper.customers.create({
 ## Changelog
 
 1.1.0 Add customersGroups and customersCategories resources
+1.2.0 Add notifications

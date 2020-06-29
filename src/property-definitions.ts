@@ -248,3 +248,19 @@ export interface SaleProperties {
 
   [propName: string]: any;
 }
+
+export interface NotificationProperties {
+  id?: number;
+  customer_id: number;
+  name: string;
+  description?: string;
+  cause?: string;
+  employee_id?: number;
+  object_type?: string;
+  object_id?: number;
+  company_id?: number;
+  created_at?: string;
+  updated_at?: string;
+
+  [propName: string]: any;
+}

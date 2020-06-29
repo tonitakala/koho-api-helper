@@ -30,15 +30,6 @@ export class SaleMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  /**
-   * @function
-   * @memberof KohoApiHelper#
-   * @alias sales.create
-   * @param {PropectProperties} properties
-   * @param {number} customerId Customer Id
-   * @returns {Promise|Sale}
-   */
-
   async create(properties: SaleProperties, customerId: number) {
     if (customerId) {
       properties.customer_id = customerId;
