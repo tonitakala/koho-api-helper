@@ -58,6 +58,6 @@ export class Customer extends Resource {
   }
 
   async addNotification(message: string) : Promise<void> {
-    return await (<KohoApiHelper>super._helper).notifications.create(this.id, message);
+    return await (<KohoApiHelper>this._helper).notifications.create(this.id, message);
   }
 }

@@ -1,6 +1,6 @@
 export interface CustomerProperties {
   id?: number;
-  name: string;
+  name?: string;
 
   [propName: string]: any;
 }
@@ -13,8 +13,8 @@ export interface CustomerCategoryProperties {
 }
 
 export interface CustomerGroupProperties {
-  id: number;
-  name: string;
+  id?: number;
+  name?: string;
   description?: string;
   customer_ids?: number[];
   custom_parameters?: any;
@@ -22,7 +22,7 @@ export interface CustomerGroupProperties {
 
 export interface PersonProperties {
   id?: number;
-  customer_id: number;
+  customer_id?: number;
   first_name?: string;
   last_name?: string;
   description?: string;

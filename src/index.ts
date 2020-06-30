@@ -20,6 +20,7 @@ type KohoApiHelperOptions = {
 }
 
 export class KohoApiHelper {
+  [propName: string]: any;
   options: any;
 
   readonly customers: CustomerMethods;
