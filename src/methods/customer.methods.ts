@@ -51,7 +51,8 @@ export class CustomerMethods extends Methods {
 
   async getByOrganizationId(organization_id: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { organization_id });
-    const resources = result.data ? result.data.map((r: CustomerProperties) => new Customer(r, this._helper)) : [];
+
+    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper)) : [];
 
     return resources;
   }
