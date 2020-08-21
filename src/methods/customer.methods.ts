@@ -3,6 +3,8 @@ import { Methods } from '../methods';
 import { Customer } from '../resources/customer.resource';
 import { CustomerProperties } from '../property-definitions';
 
+const FormData = require('form-data');
+
 export class CustomerMethods extends Methods {
   constructor (helper: KohoApiHelper) {
     super(helper, 'customers', Customer);
@@ -55,5 +57,26 @@ export class CustomerMethods extends Methods {
     const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper)) : [];
 
     return resources;
+  }
+
+  async addNotificationById(id: number, message: string) : Promise<void> {
+    return await this._helper.notifications.create(id, message);
+  }
+
+  async addFileById(id: number, folderId: number, name: string, fileBuffer: Buffer, fileMetadata: { filename: string; contentType: string }, description?: string) : Promise<void> {
+    const form = new FormData();
+
+    form.append('file[folder_id]', folderId.toString());
+    form.append('file[name]', name);
+
+    if (description) {
+      form.append('file[description]', description);
+    }
+
+    form.append('file[data]', fileBuffer, fileMetadata);
+
+    await this.request(`${this._uri}/${id}/attach_file`, 'POST', null, null, {
+      body : form
+    });
   }
 }

@@ -58,6 +58,10 @@ export class Customer extends Resource {
   }
 
   async addNotification(message: string) : Promise<void> {
-    return await (<KohoApiHelper>this._helper).notifications.create(this.id, message);
+    return await this._helper[this._type].addNotificationById(this.id, message);
+  }
+  
+  async addFile(folderId: number, name: string, fileBuffer: Buffer, fileMetadata: { filename: string; contentType: string }, description?: string) : Promise<void> {
+    return await this._helper[this._type].addFileById(this.id, folderId, name, fileBuffer, fileMetadata, description);
   }
 }
