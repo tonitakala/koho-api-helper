@@ -29,8 +29,15 @@ export class Methods {
     this._resourceRef = resourceRef;
   }
 
-  // Prefix post body with object type
-  _generateProperties(properties: any) {
+  // Prefix post body with object type and make sure to clean up properties
+  _generateProperties(_properties: any) {
+    const properties: any = {};
+    for (const property in _properties) {
+      if (_properties.hasOwnProperty(property) && property !== '_type' && property !== '_helper') {
+        properties[property] = _properties[property];
+      }
+    }
+
     const object : any = {}; object[this._type] = properties;
 
     return object;
@@ -38,6 +45,10 @@ export class Methods {
 
   async request(uri: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
     return await this._helper.request(`${this._helper.options.url}/${uri}`, method, data, params, options);
+  }
+
+  async requestBuffer(uri: string, method?: string, data?: any, params?: any, options?: any) : Promise<Buffer> {
+    return await this._helper.requestBuffer(`${this._helper.options.url}/${uri}`, method, data, params, options);
   }
 
   async create(properties: any, ...args: any) {

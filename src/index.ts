@@ -11,6 +11,7 @@ import { NotificationMethods } from './methods/notification.methods';
 import { default as got } from 'got';
 import { CustomerCategoryMethods } from './methods/customer-category.methods';
 import { CustomerGroupMethods } from './methods/customer-group.methods';
+import { OfferMethods } from './methods/offer.methods';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -34,6 +35,7 @@ export class KohoApiHelper {
   readonly notifications: NotificationMethods;
   readonly customersCategories: CustomerCategoryMethods;
   readonly customersGroups: CustomerGroupMethods;
+  readonly offers: OfferMethods;
 
   constructor(options: KohoApiHelperOptions) {
     this.options = options || {};
@@ -61,9 +63,10 @@ export class KohoApiHelper {
     this.projects = new ProjectMethods(this);
     this.sales = new SaleMethods(this);
     this.notifications = new NotificationMethods(this);
+    this.offers = new OfferMethods(this);
   }
 
-  async request(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
+  private _setupRequest(url: string, method?: string, data?: any, params?: any, options?: any) {
     if ( ! url) {
       throw new Error('Missing URL for request');
     }
@@ -74,11 +77,23 @@ export class KohoApiHelper {
       ...options
     }
 
-    if (gotOptions.method !== 'GET') {
+    if (gotOptions.method !== 'GET' && !options?.body && !options?.form) {
       gotOptions.json = data;
     }
 
+    return gotOptions;
+  }
+
+  async request(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
+    const gotOptions = this._setupRequest(url, method, data, params, options);
+
     return await got(url, gotOptions).json();
+  }
+
+  async requestBuffer(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
+    const gotOptions = this._setupRequest(url, method, data, params, options);
+
+    return await got(url, gotOptions).buffer();
   }
 
   get _authParams() {
