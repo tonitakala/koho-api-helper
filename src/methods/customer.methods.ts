@@ -32,21 +32,21 @@ export class CustomerMethods extends Methods {
 
    async getByName(name: string) : Promise<Customer[]> {
     const result = await super.request(this._uri, 'GET', null, { name });
-    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper));
+    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper()));
 
     return resources;
    }
 
   async getByNumber(number: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { number });
-    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper));
+    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper()));
 
     return resources;
    }
 
   async getByCode(code: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { code });
-    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper)) : [];
+    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper())) : [];
 
     return resources;
   }
@@ -54,13 +54,13 @@ export class CustomerMethods extends Methods {
   async getByOrganizationId(organization_id: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { organization_id });
 
-    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper)) : [];
+    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper())) : [];
 
     return resources;
   }
 
   async addNotificationById(id: number, message: string) : Promise<void> {
-    return await this._helper.notifications.create(id, message);
+    return await this._helper().notifications.create(id, message);
   }
 
   async addFileById(id: number, folderId: number, name: string, fileBuffer: Buffer, fileMetadata: { filename: string; contentType: string }, description?: string) : Promise<void> {

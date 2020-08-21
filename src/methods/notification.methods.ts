@@ -17,7 +17,7 @@ export class NotificationMethods extends Methods {
   }
 
   async create(customerId: number, message: string) : Promise<void> {
-    await this._helper.request(`${this._helper.options.url}/customers/${customerId}/notifications`, 'POST', this._generateProperties({ name: message }));
+    await this._helper().request(`${this._helper().options.url}/customers/${customerId}/notifications`, 'POST', this._generateProperties({ name: message }));
 
     return;
   }

@@ -2,14 +2,11 @@ import { KohoApiHelper } from '.';
 import { CustomerProperties, InvoiceProperties, PersonProperties } from './property-definitions';
 
 class Resource {
-  _helper: KohoApiHelper;
-  _type: string;
-
   [x: string]: any;
 
   constructor (properties: any, helper: KohoApiHelper, type: string) {
-    this._helper = helper;
-    this._type = type;
+    this._helper = () => helper;
+    this._type = () => type;
 
     if (!properties || typeof properties !== 'object') {
       throw new Error('Incorrect or missing properties in resource initialization');
@@ -55,11 +52,11 @@ class Resource {
       this._updateInterceptor(properties);
     }
 
-    return await this._helper[this._type].updateById(this.id, properties);
+    return await this._helper()[this._type()].updateById(this.id, properties);
   }
 
   async delete() {
-    return await this._helper[this._type].deleteById(this.id);
+    return await this._helper()[this._type()].deleteById(this.id);
   }
 }
 

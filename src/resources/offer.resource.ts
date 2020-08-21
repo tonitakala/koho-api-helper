@@ -23,6 +23,6 @@ export class Offer extends Resource {
   }
 
   async getOfferPdf() : Promise<Buffer> {
-    return await this._helper[this._type].getOfferPdfById(this.id);
+    return await this._helper()[this._type()].getOfferPdfById(this.id);
   }
 }
