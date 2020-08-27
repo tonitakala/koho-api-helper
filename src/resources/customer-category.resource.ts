@@ -1,10 +1,13 @@
 import { KohoApiHelper } from '../index';
-import { CustomerCategoryProperties } from "../property-definitions";
 import { Resource } from '../resource';
 
 export class CustomerCategory extends Resource {
+  id?: number;
+  name!: string;
+  description?: string;
+  customer_ids?: number[];
 
-  constructor (properties: CustomerCategoryProperties, helper: KohoApiHelper) {
+  constructor (properties: CustomerCategory, helper: KohoApiHelper) {
     super(properties, helper, 'customers/categories');
   }
 }

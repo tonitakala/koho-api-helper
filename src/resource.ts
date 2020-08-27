@@ -1,5 +1,4 @@
 import { KohoApiHelper } from '.';
-import { CustomerProperties, InvoiceProperties, PersonProperties } from './property-definitions';
 
 class Resource {
   [x: string]: any;
@@ -24,11 +23,11 @@ class Resource {
       throw new Error('Missing id in property initialization');
     }
 
-    this.setProperties(this, properties);
+    this._setProperties(this, properties);
   }
 
   // Recursively update properties in object
-  setProperties(object: any, properties: any) {
+  _setProperties (object: any, properties: any) : void {
     delete properties._helper;
     delete properties._type;
 
@@ -38,15 +37,17 @@ class Resource {
           object[property] = {};
         }
 
-        this.setProperties(object[property], properties[property]);
+        this._setProperties(object[property], properties[property]);
       } else {
         object[property] = properties[property];
       }
     }
+
+    return;
   }
 
-  async update(properties: any) {
-    this.setProperties(this, properties);
+  async update (properties: any) {
+    this._setProperties(this, properties);
 
     if (typeof this._updateInterceptor === 'function') {
       this._updateInterceptor(properties);
@@ -55,7 +56,7 @@ class Resource {
     return await this._helper()[this._type()].updateById(this.id, properties);
   }
 
-  async delete() {
+  async delete () {
     return await this._helper()[this._type()].deleteById(this.id);
   }
 }

@@ -1,7 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
 import { Customer } from '../resources/customer.resource';
-import { CustomerProperties } from '../property-definitions';
 
 const FormData = require('form-data');
 
@@ -18,7 +17,7 @@ export class CustomerMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: CustomerProperties) : Promise<void> {
+  async updateById(id: number, properties: Partial<Customer>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -26,27 +25,27 @@ export class CustomerMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: CustomerProperties) : Promise<Customer> {
+  async create(properties: Customer) : Promise<Customer> {
     return await super.create(properties);
   }
 
    async getByName(name: string) : Promise<Customer[]> {
     const result = await super.request(this._uri, 'GET', null, { name });
-    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper()));
+    const resources = result.map((r: Customer) => new Customer(r, this._helper()));
 
     return resources;
    }
 
   async getByNumber(number: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { number });
-    const resources = result.map((r: CustomerProperties) => new Customer(r, this._helper()));
+    const resources = result.map((r: Customer) => new Customer(r, this._helper()));
 
     return resources;
    }
 
   async getByCode(code: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { code });
-    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper())) : [];
+    const resources = result ? result.map((r: Customer) => new Customer(r, this._helper())) : [];
 
     return resources;
   }
@@ -54,7 +53,7 @@ export class CustomerMethods extends Methods {
   async getByOrganizationId(organization_id: string) : Promise<Customer[]> {
     const result = await this.request(this._uri, 'GET', null, { organization_id });
 
-    const resources = result ? result.map((r: CustomerProperties) => new Customer(r, this._helper())) : [];
+    const resources = result ? result.map((r: Customer) => new Customer(r, this._helper())) : [];
 
     return resources;
   }

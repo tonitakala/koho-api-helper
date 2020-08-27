@@ -1,24 +1,30 @@
 import { KohoApiHelper } from '../index';
-import { OfferProperties } from "../property-definitions";
 import { Resource } from '../resource';
-
-/**
- * @constructor
- * @name Offer
- * @param {OfferProperties} properties
- * @param {KohoApiHelper} helper
- */
+import { ContractProductProperties } from './contract.resource';
 
 export class Offer extends Resource {
-  constructor (properties: OfferProperties, helper: KohoApiHelper) {
+  id?: number;
+  name!: string;
+  customer_id?: number;
+  original_seller_id?: number;
+  template_id?: number;
+  description?: string;
+  probability?: number;
+  one_time_net_total?: string;
+  monthly_net_total?: string;
+  valid_to?: string; // YYYY-MM-DD
+  originated_at?: string; // ISO TIMESTAMP
+  outcome?: string;
+  resolved_at?: string; // ISO TIMESTAMP
+  parameters?: any; // Additional Koho parameters
+  custom_parameters?: any;
+  products?: ContractProductProperties[];
+
+  constructor (properties: Offer, helper: KohoApiHelper) {
     super(properties, helper, 'offers');
   }
 
-  _updateInterceptor(properties: OfferProperties) {
-
-  }
-
-  async update(properties: OfferProperties) : Promise<void> {
+  async update(properties: Partial<Offer>) : Promise<void> {
     return await super.update(properties);
   }
 

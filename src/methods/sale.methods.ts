@@ -1,14 +1,13 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
 import { Sale } from '../resources/sale.resource';
-import { SaleProperties } from '../property-definitions';
 
 export class SaleMethods extends Methods {
   constructor (helper: KohoApiHelper) {
     super(helper, 'sales', Sale);
   }
 
-  _validateProperties(properties: SaleProperties) {
+  _validateProperties(properties: Partial<Sale>) : void {
     if (!properties.products_attributes) {
       throw new Error('Missing products for sale');
     }
@@ -22,7 +21,7 @@ export class SaleMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: SaleProperties) : Promise<void> {
+  async updateById(id: number, properties: Partial<Sale>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -30,7 +29,7 @@ export class SaleMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: SaleProperties, customerId: number) {
+  async create(properties: Sale, customerId: number) : Promise<Sale> {
     if (customerId) {
       properties.customer_id = customerId;
     }

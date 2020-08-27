@@ -12,6 +12,7 @@ import { default as got } from 'got';
 import { CustomerCategoryMethods } from './methods/customer-category.methods';
 import { CustomerGroupMethods } from './methods/customer-group.methods';
 import { OfferMethods } from './methods/offer.methods';
+import { ProductCatalogMethods } from './methods/product-catalog.methods';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -30,6 +31,7 @@ export class KohoApiHelper {
   readonly contracts: ContractMethods;
   readonly employees: EmployeeMethods;
   readonly products: ProductMethods;
+  readonly productsCatalogs: ProductCatalogMethods;
   readonly projects: ProjectMethods;
   readonly sales: SaleMethods;
   readonly notifications: NotificationMethods;
@@ -60,6 +62,7 @@ export class KohoApiHelper {
     this.contracts = new ContractMethods(this);
     this.employees = new EmployeeMethods(this);
     this.products = new ProductMethods(this);
+    this.productsCatalogs = new ProductCatalogMethods(this);
     this.projects = new ProjectMethods(this);
     this.sales = new SaleMethods(this);
     this.notifications = new NotificationMethods(this);

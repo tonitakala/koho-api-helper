@@ -1,7 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
 import { Employee } from '../resources/employee.resource';
-import { EmployeeProperties } from '../property-definitions';
 
 export class EmployeeMethods extends Methods {
   constructor (helper: KohoApiHelper) {
@@ -16,7 +15,7 @@ export class EmployeeMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: EmployeeProperties) : Promise<void> {
+  async updateById(id: number, properties: Partial<Employee>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -24,7 +23,7 @@ export class EmployeeMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: EmployeeProperties) : Promise<Employee> {
+  async create(properties: Employee) : Promise<Employee> {
     return await super.create(properties);
   }
 

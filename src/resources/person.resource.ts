@@ -1,35 +1,39 @@
-import { PersonProperties } from "../property-definitions";
 import { KohoApiHelper } from '../index';
 import { Resource } from '../resource'; 
 
-/**
- * @typedef {Object} PersonAccessTokenProperties
- * @property {number} id Access token ID
- * @property {number} customer_id Customer ID
- * @property {number} user_id
- * @property {number} person_id
- * @property {string} email
- * @property {Boolean} is_valid
- * @property {Boolean} admin
- * @property {Object} settings
- * @property {string} created_at
- * @property {string} updated_at
- * @property {any} [_] Other properties. Please consult Koho customer service
- */
+export interface PersonAccessTokenProperties {
+  id: number;
+  customer_id: number;
+  user_id: number;
+  person_id: number;
+  email: string;
+  is_valid: boolean;
+  admin: boolean;
+  settings?: object;
+  created_at: string;
+  updated_at: string;
 
-/**
- * @constructor
- * @name Person
- * @param {PersonProperties} properties
- * @param {KohoApiHelper} helper
- */
+  [propName: string]: any;
+}
 
 export class Person extends Resource {
-  constructor (properties: PersonProperties, helper: KohoApiHelper) {
+  id?: number;
+  customer_id?: number;
+  first_name?: string;
+  last_name?: string;
+  description?: string;
+  email?: string;
+  phone?: string;
+  role?: string;
+  position?: string;
+  archived?: boolean;
+  customer_access_tokens?: PersonAccessTokenProperties[];
+
+  constructor (properties: Person, helper: KohoApiHelper) {
     super(properties, helper, 'persons');
   }
 
-  _updateInterceptor(properties: PersonProperties) {
+  _updateInterceptor(properties: Partial<Person>) : void {
     delete properties.customer_access_tokens;
   }
 
@@ -41,7 +45,7 @@ export class Person extends Resource {
     return await super.update({ archived : false });
   }
 
-  async update(properties: PersonProperties) : Promise<void> {
+  async update(properties: Partial<Person>) : Promise<void> {
     return await super.update(properties);
   }
 }

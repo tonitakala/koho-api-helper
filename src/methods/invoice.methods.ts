@@ -1,7 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
 import { Invoice } from '../resources/invoice.resource';
-import { InvoiceProperties } from '../property-definitions';
 
 export class InvoiceMethods extends Methods {
   constructor (helper: KohoApiHelper) {
@@ -16,7 +15,7 @@ export class InvoiceMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: InvoiceProperties) : Promise<void> {
+  async updateById(id: number, properties: Partial<Invoice>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -24,13 +23,13 @@ export class InvoiceMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: InvoiceProperties) : Promise<Invoice> {
+  async create(properties: Invoice) : Promise<Invoice> {
     return await super.create(properties);
   }
 
   async getByCustomerId(customerId: number) : Promise<Invoice[]> {
     const result = await this.request(this._uri, 'GET', null, { customer_id : customerId });
-    const invoices = result.map((r: InvoiceProperties) => new Invoice(r, this._helper()));
+    const invoices = result.map((r: Invoice) => new Invoice(r, this._helper()));
 
     return invoices;
   }
@@ -39,7 +38,7 @@ export class InvoiceMethods extends Methods {
     throw new Error('Not implemented in Koho API');
 
     const result = await this.request(this._uri, 'GET', null, { contract_id : contractId });
-    const invoices = result.map((r: InvoiceProperties) => new Invoice(r, this._helper()));
+    const invoices = result.map((r: Invoice) => new Invoice(r, this._helper()));
 
     return invoices;
   }

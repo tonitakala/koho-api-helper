@@ -19,10 +19,12 @@ export class Methods {
     }
 
     this._helper = () => helper;
-    this._uri = uri;
 
-    // work_session/assignments = assignment || contracts = contract
-    const type = (uri.indexOf('/') === -1) ? uri.slice(0, -1) : uri.substring(uri.indexOf('/') + 1).slice(0, -1);
+    // replace double slashes with one slash
+    this._uri = uri.replace('//','/');
+
+    // product_type//catalogs = product_type_catalog | work_session/assignments = assignment || contracts = contract
+    const type = uri.includes('//') ? uri.replace('//', '_').slice(0, -1) : uri.includes('/') ? uri.substring(uri.indexOf('/') + 1).slice(0, -1) : uri.slice(0, -1);
     this._type = () => type;
 
     this._resourceRef = resourceRef;
@@ -50,7 +52,7 @@ export class Methods {
     return await this._helper().requestBuffer(`${this._helper().options.url}/${uri}`, method, data, params, options);
   }
 
-  async create(properties: any, ...args: any) {
+  async create(properties: any, ...args: any) : Promise<any> {
     // may be needed later
     if (typeof this._validateProperties === 'function') {
       this._validateProperties(properties);
@@ -63,7 +65,7 @@ export class Methods {
     return resource;
   }
 
-  async getAll(params: object = {}) {
+  async getAll(params: object = {}) : Promise<any[]> {
     const result = await this.request(this._uri, 'GET', null, params);
 
     const resources = result.map((r: any) => new this._resourceRef(r, this._helper()));
@@ -71,13 +73,13 @@ export class Methods {
     return resources;
   }
 
-  async getById(resourceId: number) {
+  async getById(resourceId: number) : Promise<any> {
     const result = await this.request(`${this._uri}/${resourceId}`);
 
     return new this._resourceRef(result, this._helper());
   }
 
-  async updateById(resourceId: number, properties: any) {
+  async updateById(resourceId: number, properties: any) : Promise<void> {
     if ( ! resourceId) {
       throw new Error(`Cannot update ${this._type()}: No ${this._type()}.id specified`);
     }

@@ -10,5 +10,4 @@ export class CustomerCategoryMethods extends Methods {
   async getAll(params: object = {}) : Promise<CustomerCategory[]> {
     return await super.getAll(params);
   }
-
 }

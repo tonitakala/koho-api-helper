@@ -1,7 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
 import { Offer } from '../resources/offer.resource';
-import { OfferProperties } from '../property-definitions';
 
 export class OfferMethods extends Methods {
   constructor (helper: KohoApiHelper) {
@@ -20,7 +19,7 @@ export class OfferMethods extends Methods {
     return await this.requestBuffer(`${this._uri}/${id}/pdf`);
   }
 
-  async updateById(id: number, properties: OfferProperties) : Promise<void> {
+  async updateById(id: number, properties: Partial<Offer>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -28,7 +27,7 @@ export class OfferMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: OfferProperties) : Promise<Offer> {
+  async create(properties: Offer) : Promise<Offer> {
     return await super.create(properties);
   }
 }
