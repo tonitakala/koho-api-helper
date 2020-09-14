@@ -1,6 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
-import { Customer } from '../resources/customer.resource';
+import { Customer, CustomerProperties } from '../resources/customer.resource';
 
 const FormData = require('form-data');
 
@@ -17,7 +17,7 @@ export class CustomerMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: Partial<Customer>) : Promise<void> {
+  async updateById(id: number, properties: Partial<CustomerProperties>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -25,7 +25,7 @@ export class CustomerMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: Customer) : Promise<Customer> {
+  async create(properties: CustomerProperties) : Promise<Customer> {
     return await super.create(properties);
   }
 

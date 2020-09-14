@@ -1,13 +1,13 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
-import { Person } from '../resources/person.resource';
+import { Person, PersonProperties } from '../resources/person.resource';
 
 export class PersonMethods extends Methods {
   constructor (helper: KohoApiHelper) {
     super(helper, 'customer/persons', Person);
   }
 
-  _validateProperties(properties: Person) {
+  _validateProperties(properties: PersonProperties) {
     if (!properties.customer_id) {
       throw new Error('Missing customer_id for person');
     }
@@ -21,7 +21,7 @@ export class PersonMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: Partial<Person>) : Promise<void> {
+  async updateById(id: number, properties: Partial<PersonProperties>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -29,7 +29,7 @@ export class PersonMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: Person) : Promise<Person> {
+  async create(properties: PersonProperties) : Promise<Person> {
     return await super.create(properties);
   }
 }

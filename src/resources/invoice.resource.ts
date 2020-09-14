@@ -26,14 +26,14 @@ export interface InvoiceProductProperties {
   [propName: string]: any;
 }
 
-export class Invoice extends Resource {
+export interface InvoiceProperties {
   id?: number;
-  name!: string;
+  name: string;
   number?: number;
   description?: string;
   contract_id?: number;
-  customer_id!: number;
-  due_date!: string; // YYYY-MM-DD
+  customer_id: number;
+  due_date: string; // YYYY-MM-DD
   status?: string; // approved, unapproved, sent, paid
   created_at?: string; // (ISO 8601) [cannot be modified]
   updated_at?: string; // (ISO 8601) [cannot be modified]
@@ -54,11 +54,16 @@ export class Invoice extends Resource {
   products?: InvoiceProductProperties[];
   work_sessions?: any;
 
-  constructor (properties: Invoice, helper: KohoApiHelper) {
+  [propName: string]: any;
+}
+
+export class Invoice extends Resource {
+
+  constructor (properties: InvoiceProperties, helper: KohoApiHelper) {
     super(properties, helper, 'invoices');
   }
 
-  async update(properties: Partial<Invoice>) : Promise<void> {
+  async update(properties: Partial<InvoiceProperties>) : Promise<void> {
     return await super.update(properties);
   }
 }

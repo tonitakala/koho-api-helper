@@ -1,10 +1,10 @@
 import { KohoApiHelper } from "..";
 import { Resource } from '../resource'; 
 
-export class Notification extends Resource {
+export interface NotificationProperties {
   id?: number;
-  customer_id!: number;
-  name!: string;
+  customer_id: number;
+  name: string;
   description?: string;
   cause?: string;
   employee_id?: number;
@@ -14,7 +14,11 @@ export class Notification extends Resource {
   created_at?: string;
   updated_at?: string;
 
-  constructor (properties: Notification, helper: KohoApiHelper) {
+  [propName: string]: any;
+}
+
+export class Notification extends Resource {
+  constructor (properties: NotificationProperties, helper: KohoApiHelper) {
     super(properties, helper, 'customers/notifications');
   }
 }

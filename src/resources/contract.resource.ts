@@ -28,9 +28,9 @@ export interface ContractProductProperties {
   [propName: string]: any;
 }
 
-export class Contract extends Resource {
+export interface ContractProperties {
   id?: number;
-  name!: string;
+  name: string;
   description?: string;
   start_date?: string; // YYYY-MM-DD
   end_date?: string; // YYYY-MM-DD
@@ -51,11 +51,15 @@ export class Contract extends Resource {
   confirmed_by_manager?: boolean;
   products?: ContractProductProperties[];
 
-  constructor (properties: Contract, helper: KohoApiHelper) {
+  [propName: string]: any;
+}
+
+export class Contract extends Resource {
+  constructor (properties: ContractProperties, helper: KohoApiHelper) {
     super(properties, helper, 'contracts');
   }
 
-  _updateInterceptor(properties: Contract) : void {
+  _updateInterceptor(properties: Partial<ContractProperties>) : void {
     if (properties.verification_level) {
       properties.acceptance_attributes = properties.acceptance_attributes || {};
       properties.acceptance_attributes.verification_level = properties.verification_level;
@@ -93,7 +97,7 @@ export class Contract extends Resource {
     }
   }
 
-  async update(properties: Contract) : Promise<void> {
+  async update(properties: Partial<ContractProperties>) : Promise<void> {
     return await super.update(properties);
   }
 }

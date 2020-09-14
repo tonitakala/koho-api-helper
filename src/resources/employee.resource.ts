@@ -6,12 +6,12 @@ export interface EmployeeGroupProperties {
   name?: string;
 }
 
-export class Employee extends Resource {
+export interface EmployeeProperties {
   id?: number;
   user_id?: number;
-  name!: string;
-  email!: string;
-  username!: string;
+  name: string;
+  email: string;
+  username: string;
   code?: string;
   team_name?: string;
   hourly_cost?: number;
@@ -25,7 +25,11 @@ export class Employee extends Resource {
   accounting_target_4_number?: string;
   accounting_target_id?: number;
 
-  constructor (properties: Employee, helper: KohoApiHelper) {
+  [propName: string]: any;
+}
+
+export class Employee extends Resource {
+  constructor (properties: EmployeeProperties, helper: KohoApiHelper) {
     super(properties, helper, 'employees');
 
     // Populate groups array with group id and name
@@ -43,7 +47,7 @@ export class Employee extends Resource {
     delete this.group_names;
   }
 
-  _updateInterceptor(properties: Partial<Employee>) : void {
+  _updateInterceptor(properties: Partial<EmployeeProperties>) : void {
     // Update groups by ids, not group object
     if (properties.groups !== undefined) {
       properties.group_ids = properties.groups.map((group: EmployeeGroupProperties) => group.id);
@@ -90,7 +94,7 @@ export class Employee extends Resource {
     return await super.update({ active : true });
   }
 
-  async update(properties: Partial<Employee>) : Promise<void> {
+  async update(properties: Partial<EmployeeProperties>) : Promise<void> {
     return await super.update(properties);
   }
 }

@@ -1,6 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
-import { ProductCatalog } from '../resources/product-catalog.resource';
+import { ProductCatalog, ProductCatalogProperties } from '../resources/product-catalog.resource';
 
 export class ProductCatalogMethods extends Methods {
   constructor (helper: KohoApiHelper) {
@@ -15,7 +15,7 @@ export class ProductCatalogMethods extends Methods {
     return await super.getById(resourceId);
   }
 
-  async updateById(resourceId: number, properties: Partial<ProductCatalog>) : Promise<void> {
+  async updateById(resourceId: number, properties: Partial<ProductCatalogProperties>) : Promise<void> {
     return await super.updateById(resourceId, properties)
   }
 }

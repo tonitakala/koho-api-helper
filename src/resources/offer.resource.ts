@@ -2,9 +2,9 @@ import { KohoApiHelper } from '../index';
 import { Resource } from '../resource';
 import { ContractProductProperties } from './contract.resource';
 
-export class Offer extends Resource {
+export interface OfferProperties {
   id?: number;
-  name!: string;
+  name: string;
   customer_id?: number;
   original_seller_id?: number;
   template_id?: number;
@@ -20,11 +20,15 @@ export class Offer extends Resource {
   custom_parameters?: any;
   products?: ContractProductProperties[];
 
-  constructor (properties: Offer, helper: KohoApiHelper) {
+  [propName: string]: any;
+}
+
+export class Offer extends Resource {
+  constructor (properties: OfferProperties, helper: KohoApiHelper) {
     super(properties, helper, 'offers');
   }
 
-  async update(properties: Partial<Offer>) : Promise<void> {
+  async update(properties: Partial<OfferProperties>) : Promise<void> {
     return await super.update(properties);
   }
 

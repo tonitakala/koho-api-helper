@@ -1,6 +1,6 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
-import { Contract } from '../resources/contract.resource';
+import { Contract, ContractProperties } from '../resources/contract.resource';
 
 export class ContractMethods extends Methods {
   constructor (helper: KohoApiHelper) {
@@ -15,7 +15,7 @@ export class ContractMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: Partial<Contract>) : Promise<void> {
+  async updateById(id: number, properties: Partial<ContractProperties>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -23,7 +23,7 @@ export class ContractMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: Contract) : Promise<Contract> {
+  async create(properties: ContractProperties) : Promise<Contract> {
     return await super.create(properties);
   }
 

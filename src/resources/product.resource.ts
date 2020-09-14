@@ -11,21 +11,25 @@ export interface ProductTranslationHash {
   EN?: ProductTranslationHashLanguage;
 }
 
-export class Product extends Resource {
+export interface ProductProperties {
   id?: number;
-  name!: string;
+  name: string;
   description?: string;
-  price!: number;
+  price: number;
   gross_price?: number;
   vat?: number;
   cost?: number;
   code?: string;
-  monthly!: boolean;
+  monthly: boolean;
   product_category_id?: number;
   unit_of_measurement?: string;
   translation_hash?: ProductTranslationHash;
 
-  constructor (properties: Product, helper: KohoApiHelper) {
+  [propName: string]: any;
+}
+
+export class Product extends Resource {
+  constructor (properties: ProductProperties, helper: KohoApiHelper) {
     super(properties, helper, 'products');
   }
 
@@ -37,7 +41,7 @@ export class Product extends Resource {
     return await super.update({ active : true });
   }
 
-  async update (properties: Partial<Product>) : Promise<void> {
+  async update (properties: Partial<ProductProperties>) : Promise<void> {
     return super.update(properties);
   }
 }

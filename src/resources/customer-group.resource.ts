@@ -1,15 +1,18 @@
 import { KohoApiHelper } from '../index';
 import { Resource } from '../resource';
 
-export class CustomerGroup extends Resource {
+export interface CustomerGroupProperties {
   id?: number;
-  name!: string;
+  name: string;
   description?: string;
   customer_ids?: number[];
   custom_parameters?: any;
 
+  [propName: string]: any;
+}
 
-  constructor (properties: CustomerGroup, helper: KohoApiHelper) {
+export class CustomerGroup extends Resource {
+  constructor (properties: CustomerGroupProperties, helper: KohoApiHelper) {
     super(properties, helper, 'customers/groups');
   }
 }

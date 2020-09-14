@@ -16,11 +16,11 @@ export interface PersonAccessTokenProperties {
   [propName: string]: any;
 }
 
-export class Person extends Resource {
+export interface PersonProperties {
   id?: number;
   customer_id?: number;
-  first_name?: string;
-  last_name?: string;
+  first_name: string;
+  last_name: string;
   description?: string;
   email?: string;
   phone?: string;
@@ -29,11 +29,15 @@ export class Person extends Resource {
   archived?: boolean;
   customer_access_tokens?: PersonAccessTokenProperties[];
 
-  constructor (properties: Person, helper: KohoApiHelper) {
+  [propName: string]: any;
+}
+
+export class Person extends Resource {
+  constructor (properties: PersonProperties, helper: KohoApiHelper) {
     super(properties, helper, 'persons');
   }
 
-  _updateInterceptor(properties: Partial<Person>) : void {
+  _updateInterceptor(properties: Partial<PersonProperties>) : void {
     delete properties.customer_access_tokens;
   }
 
@@ -45,7 +49,7 @@ export class Person extends Resource {
     return await super.update({ archived : false });
   }
 
-  async update(properties: Partial<Person>) : Promise<void> {
+  async update(properties: Partial<PersonProperties>) : Promise<void> {
     return await super.update(properties);
   }
 }

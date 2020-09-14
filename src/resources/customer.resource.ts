@@ -1,13 +1,13 @@
 import { KohoApiHelper } from '../index';
 import { Resource } from '../resource';
-import { Person } from './person.resource';
+import { PersonProperties } from './person.resource';
 import { Invoice } from "./invoice.resource";
-import { Employee } from './employee.resource';
+import { EmployeeProperties } from './employee.resource';
 
-export class Customer extends Resource {
+export interface CustomerProperties {
   id?: number;
   company_id?: number;
-  name!: string;
+  name: string;
   description?: string;
   number?: number;
   code?: string;
@@ -42,26 +42,30 @@ export class Customer extends Resource {
   invoice_language?: string;
   default_our_reference?: string;
   default_your_reference?: string;
-  custom_parameters?: object;
-  persons?: Person[];
-  employees?: Employee[];
+  custom_parameters?: any;
+  persons?: PersonProperties[];
+  employees?: EmployeeProperties[];
   group_ids?: number[];
   archived_at?: string;
   zero_vat?: boolean;
   posting_group?: string;
   block_sessions?: boolean;
   marketing_ban?: boolean;
-  
+
+  [propName: string]: any;
+}
+
+export class Customer extends Resource {  
   constructor (properties: Customer, helper: KohoApiHelper) {
     super(properties, helper, 'customers');
   }
 
-  _updateInterceptor(properties: Partial<Customer>) : void {
+  _updateInterceptor(properties: Partial<CustomerProperties>) : void {
 
     // rename persons to persons_attributes and remove access tokens
     if (properties.persons) {
       if (properties.persons.length) {
-        properties.persons_attributes = properties.persons.map((person: Partial<Person>) => {
+        properties.persons_attributes = properties.persons.map((person: Partial<PersonProperties>) => {
           if (person.customer_access_tokens) {
             delete person.customer_access_tokens;
           }
@@ -96,7 +100,7 @@ export class Customer extends Resource {
     return await this._helper().invoices.getByCustomerId(this.id);
   }
 
-  async update(properties: Partial<Customer>) : Promise<void> {
+  async update(properties: Partial<CustomerProperties>) : Promise<void> {
     return await super.update(properties);
   }
 

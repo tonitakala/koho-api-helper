@@ -24,18 +24,22 @@ export interface SaleProductProperties {
   [propName: string]: any;
 }
 
+export interface SaleProperties {
+  id?: number;
+  name: string;
+  customer_id?: number;
+  products: SaleProductProperties[];
+
+  [propName: string]: any;
+}
 
 export class Sale extends Resource {
-  id?: number;
-  name!: string;
-  customer_id?: number;
-  products!: SaleProductProperties[];
 
-  constructor (properties: Sale, helper: KohoApiHelper) {
+  constructor (properties: SaleProperties, helper: KohoApiHelper) {
     super(properties, helper, 'sales');
   }
 
-  _updateInterceptor(properties: Partial<Sale>) : void {
+  _updateInterceptor(properties: Partial<SaleProperties>) : void {
     // Rename template_links array for update request (legacy naming?)
     if (properties.products && properties.products.length) {
       properties.products_attributes = properties.products;
@@ -44,7 +48,7 @@ export class Sale extends Resource {
     }
   }
 
-  async update (properties: Partial<Sale>) : Promise<void> {
+  async update (properties: Partial<SaleProperties>) : Promise<void> {
     return super.update(properties);
   }
 }

@@ -1,13 +1,13 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
-import { Project } from '../resources/project.resource';
+import { Project, ProjectProperties } from '../resources/project.resource';
 
 export class ProjectMethods extends Methods {
   constructor (helper: KohoApiHelper) {
     super(helper, 'projects', Project);
   }
 
-  _validateProperties(properties: Project) : void {
+  _validateProperties(properties: ProjectProperties) : void {
     if (!properties.customer_id) {
       throw new Error('Missing customer_id for project');
     }
@@ -25,7 +25,7 @@ export class ProjectMethods extends Methods {
     return await super.getById(id);
   }
 
-  async updateById(id: number, properties: Partial<Project>) : Promise<void> {
+  async updateById(id: number, properties: Partial<ProjectProperties>) : Promise<void> {
     return await super.updateById(id, properties);
   }
 
@@ -33,7 +33,7 @@ export class ProjectMethods extends Methods {
     return await super.deleteById(id);
   }
 
-  async create(properties: Project, templateId?: number) : Promise<Project> {
+  async create(properties: ProjectProperties, templateId?: number) : Promise<Project> {
     if (templateId) {
       properties.template_links_attributes = [{ template_id : templateId }];
     }
@@ -43,7 +43,7 @@ export class ProjectMethods extends Methods {
 
   async getByCustomerId(customerId: number) : Promise<Project[]> {
     const result = await this.request(`${this._uri}/find_by_customer/${customerId}`);
-    const projects = result.map((r: Project) => new Project(r, this._helper()));
+    const projects = result.map((r: ProjectProperties) => new Project(r, this._helper()));
 
     return projects;
   }
