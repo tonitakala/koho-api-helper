@@ -135,7 +135,8 @@ const customer = await helper.customers.create({
 
 ## Changelog
 
-1.1.0 Add customersGroups and customersCategories resources
-1.2.0 Add notifications
-1.3.0 Add offers
-1.4.0 Add productsCatalogs + code refactoring
+* 1.1.0 Add customersGroups and customersCategories resources
+* 1.2.0 Add notifications
+* 1.3.0 Add offers
+* 1.4.0 Add productsCatalogs + code refactoring
+* 1.5.0 Add customersFinancialStatements

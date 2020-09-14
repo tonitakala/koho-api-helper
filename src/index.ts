@@ -13,6 +13,7 @@ import { CustomerCategoryMethods } from './methods/customer-category.methods';
 import { CustomerGroupMethods } from './methods/customer-group.methods';
 import { OfferMethods } from './methods/offer.methods';
 import { ProductCatalogMethods } from './methods/product-catalog.methods';
+import { CustomerFinancialStatementMethods } from './methods/customer-financial-statement.methods';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -37,6 +38,7 @@ export class KohoApiHelper {
   readonly notifications: NotificationMethods;
   readonly customersCategories: CustomerCategoryMethods;
   readonly customersGroups: CustomerGroupMethods;
+  readonly customersFinancialStatements: CustomerFinancialStatementMethods;
   readonly offers: OfferMethods;
 
   constructor(options: KohoApiHelperOptions) {
@@ -67,6 +69,7 @@ export class KohoApiHelper {
     this.sales = new SaleMethods(this);
     this.notifications = new NotificationMethods(this);
     this.offers = new OfferMethods(this);
+    this.customersFinancialStatements = new CustomerFinancialStatementMethods(this);
   }
 
   private _setupRequest(url: string, method?: string, data?: any, params?: any, options?: any) {
