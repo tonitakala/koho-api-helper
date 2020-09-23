@@ -1,6 +1,7 @@
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
 import { Customer, CustomerProperties } from '../resources/customer.resource';
+import { CustomerFinancialStatement } from '../resources/customer-financial-statement.resource';
 
 const FormData = require('form-data');
 
@@ -76,6 +77,14 @@ export class CustomerMethods extends Methods {
 
     await this.request(`${this._uri}/${id}/attach_file`, 'POST', null, null, {
       body : form
+    });
+  }
+
+  async addFinancialStatementById(id: number, financialStatement: Partial<CustomerFinancialStatement>) : Promise<void> {
+    delete financialStatement.customer_id;
+
+    await this.request(`${this._uri}/${id}/financial_statements`, 'POST', {
+      financial_statement : financialStatement
     });
   }
 }
