@@ -140,3 +140,13 @@ const customer = await helper.customers.create({
 * 1.3.0 Add offers
 * 1.4.0 Add productsCatalogs + code refactoring
 * 1.5.0 Add customersFinancialStatements
+
+## Miscellaneous examples
+
+Update employee groups. 
+
+```javascript
+await employee.update({
+  group_ids : [1234, 123]
+});
+```
