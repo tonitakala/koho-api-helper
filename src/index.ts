@@ -14,6 +14,9 @@ import { CustomerGroupMethods } from './methods/customer-group.methods';
 import { OfferMethods } from './methods/offer.methods';
 import { ProductCatalogMethods } from './methods/product-catalog.methods';
 import { CustomerFinancialStatementMethods } from './methods/customer-financial-statement.methods';
+import { EmployeeTeamMethods } from './methods/employee-team.methods';
+import { EmployeeProfileMethods } from './methods/employee-profile.methods';
+import { AccountingTargetMethods } from './methods/accounting-target.methods';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -26,11 +29,14 @@ export class KohoApiHelper {
   [propName: string]: any;
   options: any;
 
+  readonly accountingTargets: AccountingTargetMethods;
   readonly customers: CustomerMethods;
   readonly persons: PersonMethods;
   readonly invoices: InvoiceMethods;
   readonly contracts: ContractMethods;
   readonly employees: EmployeeMethods;
+  readonly employeesTeams: EmployeeTeamMethods;
+  readonly employeesProfiles: EmployeeProfileMethods;
   readonly products: ProductMethods;
   readonly productsCatalogs: ProductCatalogMethods;
   readonly projects: ProjectMethods;
@@ -56,6 +62,7 @@ export class KohoApiHelper {
       this.options.url = 'https://suite-beta.koho-online.com/api';
     }
 
+    this.accountingTargets = new AccountingTargetMethods(this);
     this.customers = new CustomerMethods(this);
     this.customersCategories = new CustomerCategoryMethods(this);
     this.customersGroups = new CustomerGroupMethods(this);
@@ -63,6 +70,8 @@ export class KohoApiHelper {
     this.invoices = new InvoiceMethods(this);
     this.contracts = new ContractMethods(this);
     this.employees = new EmployeeMethods(this);
+    this.employeesTeams = new EmployeeTeamMethods(this);
+    this.employeesProfiles = new EmployeeProfileMethods(this);
     this.products = new ProductMethods(this);
     this.productsCatalogs = new ProductCatalogMethods(this);
     this.projects = new ProjectMethods(this);

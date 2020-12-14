@@ -6,6 +6,10 @@ export interface EmployeeGroupProperties {
   name?: string;
 }
 
+export interface EmployeeProfileSettings {
+  template_id: number;
+}
+
 export interface EmployeeProperties {
   id?: number;
   user_id?: number;
@@ -15,8 +19,8 @@ export interface EmployeeProperties {
   code?: string;
   team_name?: string;
   hourly_cost?: number;
-  profile_template_id?: number;
-  profile_name?: string;
+  profile_template_id?: number; // READ ONLY
+  profile_name?: string; // READ ONLY
   active?: boolean;
   groups?: EmployeeGroupProperties[];
   accounting_target_number?: string;
@@ -24,6 +28,13 @@ export interface EmployeeProperties {
   accounting_target_3_number?: string;
   accounting_target_4_number?: string;
   accounting_target_id?: number;
+  flex_tracking?: boolean;
+  custom_parameters?: any;
+  default_price_per_hour?: number;
+  phone?: string;
+  sales_team_id?: number;
+
+  profile_settings?: EmployeeProfileSettings;
 
   [propName: string]: any;
 }
@@ -48,6 +59,7 @@ export class Employee extends Resource {
   }
 
   _updateInterceptor(properties: Partial<EmployeeProperties>) : void {
+
     // Update groups by ids, not group object
     if (properties.groups !== undefined) {
       properties.group_ids = properties.groups.map((group: EmployeeGroupProperties) => group.id);

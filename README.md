@@ -140,6 +140,7 @@ const customer = await helper.customers.create({
 * 1.3.0 Add offers
 * 1.4.0 Add productsCatalogs + code refactoring
 * 1.5.0 Add customersFinancialStatements
+* 1.6.0 Add accountingTargets, employeeProfiles, employeeTeams
 
 ## Miscellaneous examples
 

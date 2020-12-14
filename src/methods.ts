@@ -5,7 +5,7 @@ export class Methods {
   _uri: string;
   private _resourceRef: any;
 
-  constructor (helper: KohoApiHelper, uri: string, resourceRef: any) {
+  constructor (helper: KohoApiHelper, uri: string, resourceRef: any, typeOverride?: string) {
     if (!helper || typeof helper !== 'object') {
       throw new Error('Incorrect or missing helper in resource initialization');
     }
@@ -25,7 +25,7 @@ export class Methods {
 
     // product_type//catalogs = product_type_catalog | work_session/assignments = assignment || contracts = contract
     const type = uri.includes('//') ? uri.replace('//', '_').slice(0, -1) : uri.includes('/') ? uri.substring(uri.indexOf('/') + 1).slice(0, -1) : uri.slice(0, -1);
-    this._type = () => type;
+    this._type = typeOverride ? () => typeOverride : () => type;
 
     this._resourceRef = resourceRef;
   }

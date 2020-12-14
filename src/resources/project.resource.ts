@@ -6,6 +6,16 @@ export interface ProjectTemplateProperties {
   name?: string;
 }
 
+export interface ProjectParticipationProperties {
+  id?: number;
+  employee_id: number;
+  project_id: number;
+  start?: string;
+  end?: string;
+  responsible: boolean;
+  load?: number;
+}
+
 export interface ProjectProperties {
   id?: number;
   name: string;
@@ -14,8 +24,20 @@ export interface ProjectProperties {
   customer_id?: number;
   active?: boolean;
   description?: string;
+  category_id?: number;
+  category_name?: string;
   templates?: ProjectTemplateProperties[];
   plan_id?: number;
+  participations: ProjectParticipationProperties[];
+  price_per_hour?: number;
+  external_project_key?: string;
+  hours_budget?: number;
+  contract_hours?: number;
+  budget_total?: number;
+  invoiceable_budget?: number;
+  net_total_budget?: number;
+  custom_parameters?: any;
+  accounting_account_number?: string;
 
   [propName: string]: any;
 }
@@ -31,6 +53,12 @@ export class Project extends Resource {
       properties.template_links_attributes = properties.template_links;
 
       delete properties.template_links;
+    }
+
+    if (properties.participations) {
+      properties.participations_attributes = properties.participations;
+
+      delete properties.participations;
     }
   }
 
