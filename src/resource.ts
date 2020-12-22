@@ -4,8 +4,18 @@ class Resource {
   [x: string]: any;
 
   constructor (properties: any, helper: KohoApiHelper, type: string) {
-    this._helper = () => helper;
-    this._type = () => type;
+    // this._helper = () => helper;
+    // this._type = () => type;
+
+    Object.defineProperty(this, '_helper', {
+      enumerable: false,
+      value: () => helper
+    });
+
+    Object.defineProperty(this, '_type', {
+      enumerable: false,
+      value: () => type
+    });
 
     if (!properties || typeof properties !== 'object') {
       throw new Error('Incorrect or missing properties in resource initialization');

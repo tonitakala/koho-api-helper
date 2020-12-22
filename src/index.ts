@@ -1,3 +1,5 @@
+import { default as got } from 'got';
+
 import { CustomerMethods } from './methods/customer.methods';
 import { PersonMethods } from './methods/person.methods';
 import { InvoiceMethods } from './methods/invoice.methods';
@@ -7,8 +9,6 @@ import { ProductMethods } from './methods/product.methods';
 import { ProjectMethods } from './methods/project.methods';
 import { SaleMethods } from './methods/sale.methods';
 import { NotificationMethods } from './methods/notification.methods';
-
-import { default as got } from 'got';
 import { CustomerCategoryMethods } from './methods/customer-category.methods';
 import { CustomerGroupMethods } from './methods/customer-group.methods';
 import { OfferMethods } from './methods/offer.methods';
@@ -17,6 +17,8 @@ import { CustomerFinancialStatementMethods } from './methods/customer-financial-
 import { EmployeeTeamMethods } from './methods/employee-team.methods';
 import { EmployeeProfileMethods } from './methods/employee-profile.methods';
 import { AccountingTargetMethods } from './methods/accounting-target.methods';
+import { WorkSessionMethods } from './methods/work-session.methods';
+import { WorkSessionAssignmentMethods } from './methods/work-session-assignment.methods';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -46,6 +48,8 @@ export class KohoApiHelper {
   readonly customersGroups: CustomerGroupMethods;
   readonly customersFinancialStatements: CustomerFinancialStatementMethods;
   readonly offers: OfferMethods;
+  readonly workSessions: WorkSessionMethods;
+  readonly workSessionAssignments: WorkSessionAssignmentMethods;
 
   constructor(options: KohoApiHelperOptions) {
     this.options = options || {};
@@ -79,6 +83,8 @@ export class KohoApiHelper {
     this.notifications = new NotificationMethods(this);
     this.offers = new OfferMethods(this);
     this.customersFinancialStatements = new CustomerFinancialStatementMethods(this);
+    this.workSessions = new WorkSessionMethods(this);
+    this.workSessionAssignments = new WorkSessionAssignmentMethods(this);
   }
 
   private _setupRequest(url: string, method?: string, data?: any, params?: any, options?: any) {
@@ -117,11 +123,11 @@ export class KohoApiHelper {
     }
 
     if (this.options.enterpriseId) {
-      params.enterprise_id = this.options.enterpriseId
+      params.enterprise_id = this.options.enterpriseId;
     }
 
     if (this.options.companyId) {
-      params.company_id = this.options.companyId
+      params.company_id = this.options.companyId;
     }
 
     return params;
