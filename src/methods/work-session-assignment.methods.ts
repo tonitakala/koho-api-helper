@@ -8,7 +8,12 @@ export class WorkSessionAssignmentMethods extends Methods {
   }
 
   /**
-   * There are a lot of work session assignments. It is preferable to define `start_date` and `end_date` in params. They can be specified in any parseable date format (YYYY-MM-DD for example).
+   * Suggested `params`:
+   * @param start_date Assignment date starting from (YYYY-MM-DD)
+   * @param end_date Assignment date ending to YYYY-MM-DD
+   * @param plan true to only show project plans (projektisuunnitelma)
+   * @param no_plan true to only show assignments (työmääräys)
+   * @param updated_after Get only objects updated after YYYY-MM-DD 
    */
   async getAll(params: object = {}) : Promise<WorkSessionAssignment[]> {
     return await super.getAll(params);

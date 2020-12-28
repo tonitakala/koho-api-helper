@@ -19,6 +19,7 @@ import { EmployeeProfileMethods } from './methods/employee-profile.methods';
 import { AccountingTargetMethods } from './methods/accounting-target.methods';
 import { WorkSessionMethods } from './methods/work-session.methods';
 import { WorkSessionAssignmentMethods } from './methods/work-session-assignment.methods';
+import { WorkSessionAssignmentTemplateMethods } from './methods/work-session-assignment-template.methods';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -50,6 +51,7 @@ export class KohoApiHelper {
   readonly offers: OfferMethods;
   readonly workSessions: WorkSessionMethods;
   readonly workSessionAssignments: WorkSessionAssignmentMethods;
+  readonly workSessionAssignmentTemplates: WorkSessionAssignmentTemplateMethods;
 
   constructor(options: KohoApiHelperOptions) {
     this.options = options || {};
@@ -85,6 +87,7 @@ export class KohoApiHelper {
     this.customersFinancialStatements = new CustomerFinancialStatementMethods(this);
     this.workSessions = new WorkSessionMethods(this);
     this.workSessionAssignments = new WorkSessionAssignmentMethods(this);
+    this.workSessionAssignmentTemplates = new WorkSessionAssignmentTemplateMethods(this);
   }
 
   private _setupRequest(url: string, method?: string, data?: any, params?: any, options?: any) {

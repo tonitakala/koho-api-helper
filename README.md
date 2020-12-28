@@ -141,6 +141,7 @@ const customer = await helper.customers.create({
 * 1.4.0 Add productsCatalogs + code refactoring
 * 1.5.0 Add customersFinancialStatements
 * 1.6.0 Add accountingTargets, employeeProfiles, employeeTeams
+* 1.7.0 Add workSessions, workSessionAssignments, workSessionAssignmentTemplates
 
 ## Miscellaneous examples
 
