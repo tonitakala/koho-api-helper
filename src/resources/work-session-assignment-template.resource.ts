@@ -30,10 +30,12 @@ export interface WorkSessionAssignmentTemplateProperties {
   [propName: string]: any;
 }
 
-
-
 export class WorkSessionAssignmentTemplate extends Resource {
   constructor (properties: WorkSessionAssignmentTemplateProperties, helper: KohoApiHelper) {
-    super(properties, helper, 'work_session_assignment_template');
+    super(properties, helper, 'workSessionAssignmentTemplates');
+  }
+
+  async update (properties: Partial<WorkSessionAssignmentTemplateProperties>) : Promise<void> {
+    return super.update(properties);
   }
 }

@@ -64,6 +64,6 @@ export interface WorkSessionProperties {
 
 export class WorkSession extends Resource {
   constructor (properties: WorkSessionProperties, helper: KohoApiHelper) {
-    super(properties, helper, 'work_sessions');
+    super(properties, helper, 'workSessions');
   }
 }

@@ -32,6 +32,6 @@ export interface WorkSessionAssignmentProperties {
 
 export class WorkSessionAssignment extends Resource {
   constructor (properties: WorkSessionAssignmentProperties, helper: KohoApiHelper) {
-    super(properties, helper, 'work_session_assignment');
+    super(properties, helper, 'workSessionAssignment');
   }
 }

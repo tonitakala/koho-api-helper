@@ -4,7 +4,7 @@ import { WorkSessionAssignmentTemplate, WorkSessionAssignmentTemplateProperties 
 
 export class WorkSessionAssignmentTemplateMethods extends Methods {
   constructor (helper: KohoApiHelper) {
-    super(helper, 'work_session/assignment/templates', WorkSessionAssignmentTemplate);
+    super(helper, 'work_session/assignment/templates', WorkSessionAssignmentTemplate, 'work_session_assignment_template');
   }
 
   async getAll(params: object = {}) : Promise<WorkSessionAssignmentTemplate[]> {
