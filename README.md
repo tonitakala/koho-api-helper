@@ -55,6 +55,7 @@ The following api resources have been implemented:
 * `sales` Sales (pikakauppa)
 * `notifications` Notifications
 * `offers` Offers
+* `customReports` Custom reports
 
 ### Getter examples
 
@@ -142,6 +143,7 @@ const customer = await helper.customers.create({
 * 1.5.0 Add customersFinancialStatements
 * 1.6.0 Add accountingTargets, employeeProfiles, employeeTeams
 * 1.7.0 Add workSessions, workSessionAssignments, workSessionAssignmentTemplates
+* 1.8.0 Add customReports
 
 ## Miscellaneous examples
 
