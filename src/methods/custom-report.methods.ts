@@ -1,10 +1,11 @@
 import { settings } from 'cluster';
 import { KohoApiHelper } from '../index';
 import { Methods } from '../methods';
+import { CustomReport } from '../resources/custom-report.resource';
 
 export class CustomReportMethods extends Methods {
   constructor (helper: KohoApiHelper) {
-    super(helper, 'report/custom', {});
+    super(helper, 'report/custom', CustomReport);
   }
 
   /**
