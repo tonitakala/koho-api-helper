@@ -38,8 +38,8 @@ class Resource {
 
   // Recursively update properties in object
   _setProperties (object: any, properties: any) : void {
-    delete properties._helper;
-    delete properties._type;
+    // delete properties._helper;
+    // delete properties._type;
 
     for (const property in properties) {
       if (typeof properties[property] === 'object' && properties[property] !== null && !Array.isArray(properties[property])) {
