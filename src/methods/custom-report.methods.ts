@@ -14,12 +14,21 @@ export class CustomReportMethods extends Methods {
    * @param settings.term_end date ending to YYYY-MM-DD
    */
 
-  async getById(id: number, params?: { settings?: { term_start?: string; term_end?: string;} }) : Promise<any> {
+  async getById(id: number, params?: { settings?: { term_start?: string; term_end?: string; }, [propName: string]: any }) : Promise<any> {
     const constructedParams : { [propName: string]: string | number | undefined; } = {};
-
+    
     if (params?.settings) {
       for (const [key, value] of Object.entries(params.settings)) {
         constructedParams[`settings[${key}]`] = value;
+      }
+    }
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        if (key == 'settings') {
+          continue;
+        } else {
+          constructedParams[key] = value;
+        }
       }
     }
 
