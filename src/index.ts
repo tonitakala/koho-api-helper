@@ -117,6 +117,12 @@ export class KohoApiHelper {
     return await got(url, gotOptions).json();
   }
 
+  async requestText(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
+    const gotOptions = this._setupRequest(url, method, data, params, options);
+
+    return await got(url, gotOptions).text();
+  }
+
   async requestBuffer(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
     const gotOptions = this._setupRequest(url, method, data, params, options);
 
