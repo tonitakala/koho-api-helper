@@ -10,6 +10,11 @@ export class CustomerMethods extends Methods {
     super(helper, 'customers', Customer);
   }
 
+  /**
+   * Suggested `params`:
+   * @param offset Get results starting from this position
+   * @param limit to limit the results
+   */
   async getAll(params: object = {}) : Promise<Customer[]> {
     return await super.getAll(params);
   }

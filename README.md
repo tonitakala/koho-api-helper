@@ -120,6 +120,17 @@ await customer.update({
     updated_parameter : 'Updated' // update other parameters
   }
 });
+
+```
+
+You can also use patch_parameters for updating custom_parameters. 
+
+```javascript
+await customer.update({
+  patch_parameters: { 
+    updated_parameter : 'Updated' 
+  }
+});
 ```
 
 ### Create example

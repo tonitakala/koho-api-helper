@@ -7,6 +7,11 @@ export class EmployeeMethods extends Methods {
     super(helper, 'employees', Employee);
   }
 
+  /**
+   * Suggested `params`:
+   * @param offset Get results starting from this position
+   * @param limit to limit the results
+   */
   async getAll(params: object = {}) : Promise<Employee[]> {
     return await super.getAll(params);
   }

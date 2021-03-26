@@ -17,6 +17,11 @@ export class ProjectMethods extends Methods {
     }
   }
 
+  /**
+   * Suggested `params`:
+   * @param offset Get results starting from this position
+   * @param limit to limit the results
+   */
   async getAll(params: object = {}) : Promise<Project[]> {
     return await super.getAll(params);
   }
