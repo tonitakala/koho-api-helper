@@ -20,6 +20,8 @@ import { AccountingTargetMethods } from './methods/accounting-target.methods';
 import { WorkSessionMethods } from './methods/work-session.methods';
 import { WorkSessionAssignmentMethods } from './methods/work-session-assignment.methods';
 import { WorkSessionAssignmentTemplateMethods } from './methods/work-session-assignment-template.methods';
+import { WorkSessionShiftMethods } from './methods/work-session-shift.methods';
+import { WorkSessionShiftTypeMethods } from './methods/work-session-shift-types.method';
 import { CustomReportMethods } from './methods/custom-report.methods';
 
 type KohoApiHelperOptions = {
@@ -53,6 +55,8 @@ export class KohoApiHelper {
   readonly workSessions: WorkSessionMethods;
   readonly workSessionAssignments: WorkSessionAssignmentMethods;
   readonly workSessionAssignmentTemplates: WorkSessionAssignmentTemplateMethods;
+  readonly workSessionShift: WorkSessionShiftMethods;
+  readonly workSessionShiftType: WorkSessionShiftTypeMethods;
   readonly customReports: CustomReportMethods;
 
   constructor(options: KohoApiHelperOptions) {
@@ -90,6 +94,8 @@ export class KohoApiHelper {
     this.workSessions = new WorkSessionMethods(this);
     this.workSessionAssignments = new WorkSessionAssignmentMethods(this);
     this.workSessionAssignmentTemplates = new WorkSessionAssignmentTemplateMethods(this);
+    this.workSessionShift = new WorkSessionShiftMethods(this);
+    this.workSessionShiftType = new WorkSessionShiftTypeMethods(this);
     this.customReports = new CustomReportMethods(this);
   }
 
