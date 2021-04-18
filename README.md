@@ -33,7 +33,8 @@ const kohoApiHelperOptions = {
   
   // Optional options
   enterpriseId : 1234, // Enterprise ID in Koho, if defined make sure to use enterprise token
-  url : 'https://suite-beta.koho-online.com/api', // You can override API url with this property 
+  url : 'https://suite-beta.koho-online.com/api', // You can override API url with this property
+  useKeepAliveAgent : true // If you are spamming multiple requests to Koho, you should set this to true so that connections are reused
 }
 
 const helper = new KohoApiHelper(kohoApiHelperOptions);
@@ -155,6 +156,7 @@ const customer = await helper.customers.create({
 * 1.6.0 Add accountingTargets, employeeProfiles, employeeTeams
 * 1.7.0 Add workSessions, workSessionAssignments, workSessionAssignmentTemplates
 * 1.8.0 Add customReports
+* 1.9.0 Add workSessionShifts and workSessionShiftTypes, add new helper option useKeepAliveAgent
 
 ## Miscellaneous examples
 

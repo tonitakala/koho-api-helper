@@ -1,5 +1,8 @@
 import { default as got } from 'got';
 
+import { HttpsAgent } from 'agentkeepalive';
+const keepAliveAgent = new HttpsAgent();
+
 import { CustomerMethods } from './methods/customer.methods';
 import { PersonMethods } from './methods/person.methods';
 import { InvoiceMethods } from './methods/invoice.methods';
@@ -29,6 +32,9 @@ type KohoApiHelperOptions = {
   companyId?: number;
   enterpriseId?: number;
   url?: string;
+
+  /** Set to true if keepalive https-agent should be used with http requests to Koho */
+  useKeepAliveAgent?: boolean;
 }
 
 export class KohoApiHelper {
@@ -55,8 +61,8 @@ export class KohoApiHelper {
   readonly workSessions: WorkSessionMethods;
   readonly workSessionAssignments: WorkSessionAssignmentMethods;
   readonly workSessionAssignmentTemplates: WorkSessionAssignmentTemplateMethods;
-  readonly workSessionShift: WorkSessionShiftMethods;
-  readonly workSessionShiftType: WorkSessionShiftTypeMethods;
+  readonly workSessionShifts: WorkSessionShiftMethods;
+  readonly workSessionShiftTypes: WorkSessionShiftTypeMethods;
   readonly customReports: CustomReportMethods;
 
   constructor(options: KohoApiHelperOptions) {
@@ -94,8 +100,8 @@ export class KohoApiHelper {
     this.workSessions = new WorkSessionMethods(this);
     this.workSessionAssignments = new WorkSessionAssignmentMethods(this);
     this.workSessionAssignmentTemplates = new WorkSessionAssignmentTemplateMethods(this);
-    this.workSessionShift = new WorkSessionShiftMethods(this);
-    this.workSessionShiftType = new WorkSessionShiftTypeMethods(this);
+    this.workSessionShifts = new WorkSessionShiftMethods(this);
+    this.workSessionShiftTypes = new WorkSessionShiftTypeMethods(this);
     this.customReports = new CustomReportMethods(this);
   }
 
@@ -112,6 +118,10 @@ export class KohoApiHelper {
 
     if (gotOptions.method !== 'GET' && !options?.body && !options?.form) {
       gotOptions.json = data;
+    }
+
+    if (this.options?.useKeepAliveAgent === true) {
+      gotOptions.agent = { https: keepAliveAgent };
     }
 
     return gotOptions;
