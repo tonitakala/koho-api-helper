@@ -35,6 +35,9 @@ type KohoApiHelperOptions = {
 
   /** Set to true if keepalive https-agent should be used with http requests to Koho */
   useKeepAliveAgent?: boolean;
+
+  /** You can use this property to override got request options */
+  overrideGotOptions?: any;
 }
 
 export class KohoApiHelper {
@@ -124,7 +127,12 @@ export class KohoApiHelper {
       gotOptions.agent = { https: keepAliveAgent };
     }
 
-    return gotOptions;
+    // Default retry options
+    if ( ! gotOptions.retry) {
+      gotOptions.retry = 5;
+    }
+
+    return { ...gotOptions, ...this.overrideGotOptions };
   }
 
   async request(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
