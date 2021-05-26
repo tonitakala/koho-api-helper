@@ -26,6 +26,7 @@ import { WorkSessionAssignmentTemplateMethods } from './methods/work-session-ass
 import { WorkSessionShiftMethods } from './methods/work-session-shift.methods';
 import { WorkSessionShiftTypeMethods } from './methods/work-session-shift-types.method';
 import { CustomReportMethods } from './methods/custom-report.methods';
+import { CompanyMethods } from './methods/company.methods';
 
 type KohoApiHelperOptions = {
   token: string;
@@ -67,6 +68,7 @@ export class KohoApiHelper {
   readonly workSessionShifts: WorkSessionShiftMethods;
   readonly workSessionShiftTypes: WorkSessionShiftTypeMethods;
   readonly customReports: CustomReportMethods;
+  readonly companies: CompanyMethods;
 
   constructor(options: KohoApiHelperOptions) {
     this.options = options || {};
@@ -106,6 +108,7 @@ export class KohoApiHelper {
     this.workSessionShifts = new WorkSessionShiftMethods(this);
     this.workSessionShiftTypes = new WorkSessionShiftTypeMethods(this);
     this.customReports = new CustomReportMethods(this);
+    this.companies = new CompanyMethods(this);
   }
 
   private _setupRequest(url: string, method?: string, data?: any, params?: any, options?: any) {
@@ -138,7 +141,13 @@ export class KohoApiHelper {
   async request(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
     const gotOptions = this._setupRequest(url, method, data, params, options);
 
-    return await got(url, gotOptions).json();
+    const result: any = await got(url, gotOptions).json();
+
+    if (result?.status === 'error') {
+      throw new Error(result.message);
+    } 
+
+    return result;
   }
 
   async requestText(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {

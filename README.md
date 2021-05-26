@@ -157,6 +157,7 @@ const customer = await helper.customers.create({
 * 1.7.0 Add workSessions, workSessionAssignments, workSessionAssignmentTemplates
 * 1.8.0 Add customReports
 * 1.9.0 Add workSessionShifts and workSessionShiftTypes, add new helper option useKeepAliveAgent
+* 1.10.0 Add support for updating notifications, companies related methods and better error for API throttling
 
 ## Miscellaneous examples
 

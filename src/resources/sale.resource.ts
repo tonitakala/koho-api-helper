@@ -28,7 +28,8 @@ export interface SaleProperties {
   id?: number;
   name: string;
   customer_id?: number;
-  products: SaleProductProperties[];
+  products?: SaleProductProperties[];
+  products_attributes?: SaleProductProperties[];
 
   [propName: string]: any;
 }
