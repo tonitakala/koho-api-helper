@@ -33,14 +33,16 @@ export class NotificationMethods extends Methods {
     return;
   }
 
-  /**
-   * Not supported for notifications - use getByCustomerAndNotificationId instead
-   */
-   async getById(id: number) : Promise<void> {
-    throw new Error(`getById method not supported for notifications`);
-  }
 
-  async getByCustomerAndNotificationId(customerId: number, notificationId: number) : Promise<Notification> {
-    return await this._helper().request(`${this._helper().options.url}/customers/${customerId}/notifications?notification_id=${notificationId}`);
+   async getById(id: number) : Promise<Notification> {
+    const notifications = await this._helper().request(`${this._helper().options.url}/customers/notifications`, 'GET', null, {
+      notification_id : id
+    });
+
+    if ( ! notifications.length) {
+      throw new Error(`Could not find notification with ID ${id}`)
+    }
+
+    return new Notification(notifications[0], this._helper());
   }
 }

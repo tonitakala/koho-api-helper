@@ -19,6 +19,6 @@ export interface NotificationProperties {
 
 export class Notification extends Resource {
   constructor (properties: NotificationProperties, helper: KohoApiHelper) {
-    super(properties, helper, 'customers/notifications');
+    super(properties, helper, 'notifications');
   }
 }
