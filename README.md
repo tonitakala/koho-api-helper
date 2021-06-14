@@ -34,7 +34,11 @@ const kohoApiHelperOptions = {
   // Optional options
   enterpriseId : 1234, // Enterprise ID in Koho, if defined make sure to use enterprise token
   url : 'https://suite-beta.koho-online.com/api', // You can override API url with this property
-  useKeepAliveAgent : true // If you are spamming multiple requests to Koho, you should set this to true so that connections are reused
+  useKeepAliveAgent : true, // If you are spamming multiple requests to Koho, you should set this to true so that connections are reused
+
+  // Added in 2.0.0, disable streaming for Koho GET requests, defaults to false and GET requests are streamed
+  disableStreaming : true
+
 }
 
 const helper = new KohoApiHelper(kohoApiHelperOptions);
@@ -158,6 +162,7 @@ const customer = await helper.customers.create({
 * 1.8.0 Add customReports
 * 1.9.0 Add workSessionShifts and workSessionShiftTypes, add new helper option useKeepAliveAgent
 * 1.10.0 Add support for updating notifications, companies  methods, accounting assignments methods and better error messages
+* 2.0.0 Add streaming by default for GET requests to avoid throttling, can be disabled by disableStreaming option
 
 ## Miscellaneous examples
 

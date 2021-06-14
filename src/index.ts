@@ -40,6 +40,9 @@ type KohoApiHelperOptions = {
 
   /** You can use this property to override got request options */
   overrideGotOptions?: any;
+
+  /** Set to true to disable streaming for GET requests (added in 2.0.0) */
+  disableStreaming?: boolean;
 }
 
 export class KohoApiHelper {
@@ -114,7 +117,7 @@ export class KohoApiHelper {
     this.accountingAssignments = new AccountingAssignmentMethods(this);
   }
 
-  private _setupRequest(url: string, method?: string, data?: any, params?: any, options?: any) {
+  private _setupRequest(url: string, method?: string, data?: any, params?: any, options?: any, disableStreaming?: boolean) {
     if ( ! url) {
       throw new Error('Missing URL for request');
     }
@@ -131,6 +134,11 @@ export class KohoApiHelper {
 
     if (this.options?.useKeepAliveAgent === true) {
       gotOptions.agent = { https: keepAliveAgent };
+    }
+
+    if (this.options?.disableStreaming !== true && disableStreaming !== true && gotOptions.method === 'GET') {
+      // Using stream=true enables Koho API streaming
+      gotOptions.searchParams.stream = true;
     }
 
     // Default retry options
@@ -160,7 +168,7 @@ export class KohoApiHelper {
   }
 
   async requestBuffer(url: string, method?: string, data?: any, params?: any, options?: any) : Promise<any> {
-    const gotOptions = this._setupRequest(url, method, data, params, options);
+    const gotOptions = this._setupRequest(url, method, data, params, options, true);
 
     return await got(url, gotOptions).buffer();
   }
