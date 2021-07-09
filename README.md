@@ -163,6 +163,7 @@ const customer = await helper.customers.create({
 * 1.9.0 Add workSessionShifts and workSessionShiftTypes, add new helper option useKeepAliveAgent
 * 1.10.0 Add support for updating notifications, companies  methods, accounting assignments methods and better error messages
 * 2.0.0 Add streaming by default for GET requests to avoid throttling, can be disabled by disableStreaming option
+* 2.1.0 Add support for offer notifications (extends notifications methods)
 
 ## Miscellaneous examples
 
